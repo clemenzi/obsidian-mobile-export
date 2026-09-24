@@ -1,6 +1,6 @@
 {
-	"id": "better-export",
-	"name": "Better Export",
+	"id": "mobile-export",
+	"name": "Mobile Export",
 	"version": "1.0.0",
 	"minAppVersion": "1.0.0",
 	"description": "Provides a better export experience for your notes",
