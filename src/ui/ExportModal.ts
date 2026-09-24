@@ -38,12 +38,14 @@ export class ExportModal extends Modal {
 
     new Setting(pdfSettings)
       .setName(t("includeTitle"))
+      .setDesc(t("includeTitleDescription"))
       .addToggle((toggle) => toggle.setValue(this.pdfOptions.includeTitle).onChange((value) => {
         this.pdfOptions.includeTitle = value;
       }));
 
     new Setting(pdfSettings)
       .setName(t("pageSize"))
+      .setDesc(t("pageSizeDescription"))
       .addDropdown((dropdown) => {
         for (const size of PDF_PAGE_SIZES) {
           dropdown.addOption(size, size.charAt(0).toUpperCase() + size.slice(1));
@@ -55,12 +57,14 @@ export class ExportModal extends Modal {
 
     new Setting(pdfSettings)
       .setName(t("landscape"))
+      .setDesc(t("landscapeDescription"))
       .addToggle((toggle) => toggle.setValue(this.pdfOptions.landscape).onChange((value) => {
         this.pdfOptions.landscape = value;
       }));
 
     new Setting(pdfSettings)
       .setName(t("margin"))
+      .setDesc(t("marginDescription"))
       .addDropdown((dropdown) => dropdown
         .addOption("10", t("marginNarrow"))
         .addOption("38", t("marginNormal"))
@@ -70,7 +74,9 @@ export class ExportModal extends Modal {
           this.pdfOptions.margin = Number(value);
         }));
 
-    const scaleSetting = new Setting(pdfSettings).setName(t("scale"));
+    const scaleSetting = new Setting(pdfSettings)
+      .setName(t("scale"))
+      .setDesc(t("scaleDescription"));
     scaleSetting.addSlider((slider) => slider
         .setLimits(50, 100, 10)
         .setValue(this.pdfOptions.scale)
