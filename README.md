@@ -4,7 +4,7 @@ Mobile Export is an Obsidian plugin for exporting notes as PDF or HTML on mobile
 
 ## Usage
 
-Open the context menu for a note or inside the editor, then select **Export**. Choose PDF or HTML and select **Export**. PDF export supports several page sizes and page orientation options.
+Open the context menu for a note or inside the editor, then select **Export**. Choose PDF or HTML and select **Export**. For PDF, you can include the file name as a title and adjust page size, orientation, margins, and text scale.
 
 ## Development
 

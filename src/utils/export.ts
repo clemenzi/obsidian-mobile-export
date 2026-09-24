@@ -2,25 +2,32 @@ import { TFile } from "obsidian";
 import { marked } from "marked";
 import init, { render } from "takumi-pdf/no-init";
 import wasm from "takumi-pdf/takumi_pdf_wasm_bg.wasm";
-
-export type ExportFileType = "pdf" | "html";
+import type { ExportOptions } from "../exportOptions";
 
 let pdfRendererInitialized = false;
 
 export async function exportFile(
 	markdown: string,
 	file: TFile,
-	type: ExportFileType,
+	options: ExportOptions,
 ): Promise<void> {
 	const html = await marked.parse(markdown);
 
-	if (type === "pdf") {
+	if (options.type === "pdf") {
 		if (!pdfRendererInitialized) {
 			await init({ module_or_path: wasm.buffer as ArrayBuffer });
 			pdfRendererInitialized = true;
 		}
 
-		const pdf = await render(html);
+		const title = options.includeTitle ? `<h1>${escapeHtml(file.basename)}</h1>` : "";
+		const pdfHtml = `<html><body>${title}${html}</body></html>`;
+		const pdf = await render(pdfHtml, {
+			size: options.pageSize,
+			landscape: options.landscape,
+			margin: options.margin,
+			css: options.scale === 100 ? undefined : `html { font-size: ${options.scale}%; }`,
+			metadata: { title: file.basename },
+		});
 		// Copy into an ArrayBuffer-backed view accepted by BlobPart.
 		const pdfBytes = new Uint8Array(pdf.byteLength);
 		pdfBytes.set(pdf);
@@ -47,7 +54,7 @@ ${html}
 	);
 }
 
-function downloadBlob(blob: Blob, file: TFile, extension: ExportFileType): void {
+function downloadBlob(blob: Blob, file: TFile, extension: ExportOptions["type"]): void {
 	const url = URL.createObjectURL(blob);
 	const link = document.createElement("a");
 	link.href = url;

@@ -1,8 +1,17 @@
-/*
+.mobile-export-modal {
+	width: min(600px, calc(100vw - 24px));
+	max-height: calc(100vh - 32px);
+}
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.mobile-export-modal .modal-content {
+	overflow-y: auto;
+}
 
-If your plugin does not need CSS, delete this file.
+.mobile-export-modal .setting-item {
+	padding: 12px 0;
+}
 
-*/
+.mobile-export-description {
+	margin: 0 0 12px;
+	color: var(--text-muted);
+}
