@@ -1,0 +1,11 @@
+{
+	"id": "better-export",
+	"name": "Better Export",
+	"version": "1.0.0",
+	"minAppVersion": "1.0.0",
+	"description": "Provides a better export experience for your notes",
+	"author": "Valerio Clemenzi",
+	"authorUrl": "https://vcz.me",
+	"fundingUrl": "https://obsidian.md/pricing",
+	"isDesktopOnly": false
+}
