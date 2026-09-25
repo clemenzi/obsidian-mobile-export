@@ -1,7 +1,7 @@
 {
 	"id": "mobile-export",
 	"name": "Mobile Export",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"minAppVersion": "1.8.7",
 	"description": "Export your notes even when you are on your mobile device.",
 	"author": "Valerio Clemenzi",
