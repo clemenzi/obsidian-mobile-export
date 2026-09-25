@@ -31,6 +31,6 @@
 	"dependencies": {
 		"@takumi-rs/helpers": "^2.14.0",
 		"marked": "^18.0.14",
-		"takumi-pdf": "^0.15.0"
+		"takumi-pdf": "0.15.0"
 	}
 }

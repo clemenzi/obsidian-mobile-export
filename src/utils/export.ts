@@ -1,13 +1,14 @@
-import { TFile } from "obsidian";
+import { App, TFile } from "obsidian";
 import { marked } from "marked";
 import init, { render } from "takumi-pdf/no-init";
-import wasm from "takumi-pdf/takumi_pdf_wasm_bg.wasm";
+import { loadPdfWasm } from "./pdfWasm";
 import type { ExportOptions } from "../exportOptions";
 
 let pdfRendererInitialized = false;
 
 export async function exportFile(
 	markdown: string,
+	app: App,
 	file: TFile,
 	options: ExportOptions,
 ): Promise<void> {
@@ -15,7 +16,7 @@ export async function exportFile(
 
 	if (options.type === "pdf") {
 		if (!pdfRendererInitialized) {
-			await init({ module_or_path: wasm.buffer as ArrayBuffer });
+			await init({ module_or_path: await loadPdfWasm(app) });
 			pdfRendererInitialized = true;
 		}
 

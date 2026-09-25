@@ -104,7 +104,7 @@ export class ExportModal extends Modal {
     try {
       const content = await this.app.vault.read(this.file);
       const options: ExportOptions = this.fileType === "pdf" ? this.pdfOptions : { type: "html" };
-      await exportFile(content, this.file, options);
+      await exportFile(content, this.app, this.file, options);
       this.close();
     } catch (error) {
       console.error("Failed to export file", error);
