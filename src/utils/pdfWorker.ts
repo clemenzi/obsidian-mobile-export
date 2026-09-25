@@ -1,12 +1,11 @@
 import init, { render } from "takumi-pdf/no-init";
-import wasm from "takumi-pdf/takumi_pdf_wasm_bg.wasm";
 import type { ExportOptions } from "../exportOptions";
 
 type PdfOptions = Extract<ExportOptions, { type: "pdf" }>;
 
-self.onmessage = async (event: MessageEvent<{ html: string; title: string; options: PdfOptions }>) => {
+self.onmessage = async (event: MessageEvent<{ html: string; title: string; options: PdfOptions; wasm: ArrayBuffer }>) => {
 	try {
-		await init({ module_or_path: wasm.buffer as ArrayBuffer });
+		await init({ module_or_path: event.data.wasm });
 		const { html, title, options } = event.data;
 		const pdf = await render(html, {
 			size: options.pageSize,
