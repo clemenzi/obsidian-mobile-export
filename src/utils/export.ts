@@ -57,7 +57,7 @@ ${html}
 
 function downloadBlob(blob: Blob, file: TFile, extension: ExportOptions["type"]): void {
 	const url = URL.createObjectURL(blob);
-	const link = document.createElement("a");
+	const link = document.body.createEl("a");
 	link.href = url;
 	link.download = `${file.basename}.${extension}`;
 	link.click();
