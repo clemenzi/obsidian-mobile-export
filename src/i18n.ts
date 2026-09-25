@@ -4,6 +4,8 @@ const translations = {
   en: {
     exportFile: "Export file",
     noFile: "No file found to export.",
+    enableOnDesktop: "Enable on desktop",
+    enableOnDesktopDescription: "Show export options in context menus on desktop. Mobile is always enabled.",
     modalTitle: "Export note",
     modalDescription: (fileName: string) => `Export “${fileName}”`,
     fileType: "File type",
@@ -28,6 +30,8 @@ const translations = {
   it: {
     exportFile: "Esporta file",
     noFile: "Nessun file da esportare.",
+    enableOnDesktop: "Attiva su desktop",
+    enableOnDesktopDescription: "Mostra le opzioni di esportazione nei menu contestuali su desktop. Su mobile sono sempre disponibili.",
     modalTitle: "Esporta nota",
     modalDescription: (fileName: string) => `Esporta “${fileName}”`,
     fileType: "Tipo di file",

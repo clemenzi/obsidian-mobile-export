@@ -1,11 +1,13 @@
-import { Notice, Plugin, TFile } from "obsidian";
+import { Notice, Platform, TFile } from "obsidian";
 import { ExportModal } from "../ui/ExportModal";
 import { t } from "../i18n";
+import type MobileExportPlugin from "../main";
 
-export function registerExportMenus(plugin: Plugin): void {
+export function registerExportMenus(plugin: MobileExportPlugin): void {
+	const shouldShowExport = () => Platform.isMobile || plugin.settings.enableOnDesktop;
 	plugin.registerEvent(
 		plugin.app.workspace.on("file-menu", (menu, file) => {
-			if (!(file instanceof TFile) || file.extension !== "md") return;
+			if (!shouldShowExport() || !(file instanceof TFile) || file.extension !== "md") return;
 
 			menu.addItem((item) => {
 				item
@@ -18,6 +20,8 @@ export function registerExportMenus(plugin: Plugin): void {
 
 	plugin.registerEvent(
 		plugin.app.workspace.on("editor-menu", (menu, _editor, view) => {
+			if (!shouldShowExport()) return;
+
 			menu.addItem((item) => {
 				item
 					.setTitle(t("exportFile"))
