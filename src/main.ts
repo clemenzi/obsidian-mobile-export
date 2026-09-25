@@ -7,12 +7,16 @@ export default class MobileExportPlugin extends Plugin {
 
 	async onload(): Promise<void> {
 		const saved: unknown = await this.loadData();
-		this.settings = {
-			enableOnDesktop: saved && typeof saved === "object" && "enableOnDesktop" in saved
-				&& typeof saved.enableOnDesktop === "boolean"
-					? saved.enableOnDesktop
-					: DEFAULT_SETTINGS.enableOnDesktop,
-		};
+		this.settings = { ...DEFAULT_SETTINGS };
+
+		if (saved && typeof saved === "object" && "enableOnDesktop" in saved) {
+			const enableOnDesktop = saved.enableOnDesktop;
+
+			if (typeof enableOnDesktop === "boolean") {
+				this.settings.enableOnDesktop = enableOnDesktop;
+			}
+		}
+
 		this.addSettingTab(new MobileExportSettingTab(this.app, this));
 		registerExportMenus(this);
 	}
