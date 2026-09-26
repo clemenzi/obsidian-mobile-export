@@ -2,6 +2,7 @@ import { App, Platform, TFile } from "obsidian";
 import { marked } from "marked";
 import init, { render } from "takumi-pdf/no-init";
 import { loadPdfWasm } from "./pdfWasm";
+import { HTML_DOCUMENT_CSS, pdfDocumentCss } from "./documentStyle";
 import type { ExportOptions } from "../exportOptions";
 
 let pdfRendererInitialized = false;
@@ -21,12 +22,12 @@ export async function createExportFile(
 		}
 
 		const title = options.includeTitle ? `<h1>${escapeHtml(file.basename)}</h1>` : "";
-		const pdfHtml = `<html><body>${title}${html}</body></html>`;
+		const pdfHtml = `<html><body><main class="export-note">${title}${html}</main></body></html>`;
 		const pdf = await render(pdfHtml, {
 			size: options.pageSize,
 			landscape: options.landscape,
 			margin: options.margin,
-			css: options.scale === 100 ? undefined : `html { font-size: ${options.scale}%; }`,
+			css: pdfDocumentCss(options.scale),
 			metadata: { title: file.basename },
 		});
 		// Copy into an ArrayBuffer-backed view accepted by BlobPart.
@@ -41,9 +42,10 @@ export async function createExportFile(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(file.basename)}</title>
+  <style>${HTML_DOCUMENT_CSS}</style>
 </head>
 <body>
-${html}
+<main class="export-note">${html}</main>
 </body>
 </html>`;
 
