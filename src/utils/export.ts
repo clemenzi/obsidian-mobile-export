@@ -1,4 +1,4 @@
-import { App, TFile } from "obsidian";
+import { App, Platform, TFile } from "obsidian";
 import { marked } from "marked";
 import init, { render } from "takumi-pdf/no-init";
 import { loadPdfWasm } from "./pdfWasm";
@@ -6,12 +6,12 @@ import type { ExportOptions } from "../exportOptions";
 
 let pdfRendererInitialized = false;
 
-export async function exportFile(
+export async function createExportFile(
 	markdown: string,
 	app: App,
 	file: TFile,
 	options: ExportOptions,
-): Promise<void> {
+): Promise<File> {
 	const html = await marked.parse(markdown);
 
 	if (options.type === "pdf") {
@@ -32,8 +32,7 @@ export async function exportFile(
 		// Copy into an ArrayBuffer-backed view accepted by BlobPart.
 		const pdfBytes = new Uint8Array(pdf.byteLength);
 		pdfBytes.set(pdf);
-		downloadBlob(new Blob([pdfBytes.buffer], { type: "application/pdf" }), file, "pdf");
-		return;
+		return new File([pdfBytes.buffer], `${file.basename}.pdf`, { type: "application/pdf" });
 	}
 
 	const htmlDocument = `<!doctype html>
@@ -48,20 +47,36 @@ ${html}
 </body>
 </html>`;
 
-	downloadBlob(
-		new Blob([htmlDocument], { type: "text/html;charset=utf-8" }),
-		file,
-		"html",
-	);
+	return new File([htmlDocument], `${file.basename}.html`, { type: "text/html;charset=utf-8" });
 }
 
-function downloadBlob(blob: Blob, file: TFile, extension: ExportOptions["type"]): void {
-	const url = URL.createObjectURL(blob);
+export async function deliverExportFile(file: File): Promise<void> {
+	if (Platform.isMobile) {
+		const shareData: ShareData = {
+			files: [file],
+			title: file.name,
+		};
+
+		if (
+			!navigator.share ||
+			(navigator.canShare && !navigator.canShare(shareData))
+		) {
+			throw new Error("File sharing is not supported on this device");
+		}
+
+		await navigator.share(shareData);
+
+		return;
+	}
+
+	const url = URL.createObjectURL(file);
 	const link = document.body.createEl("a");
 	link.href = url;
-	link.download = `${file.basename}.${extension}`;
+	link.download = file.name;
 	link.click();
-	URL.revokeObjectURL(url);
+	link.remove();
+
+	window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function escapeHtml(value: string): string {
