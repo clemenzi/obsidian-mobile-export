@@ -3,7 +3,9 @@ import type { ExportOptions } from "../exportOptions";
 
 type PdfOptions = Extract<ExportOptions, { type: "pdf" }>;
 
-self.onmessage = async (event: MessageEvent<{ html: string; title: string; options: PdfOptions; wasm: ArrayBuffer }>) => {
+self.onmessage = async (
+	event: MessageEvent<{ html: string; title: string; options: PdfOptions; wasm: ArrayBuffer }>,
+) => {
 	try {
 		await init({ module_or_path: event.data.wasm });
 		const { html, title, options } = event.data;

@@ -5,7 +5,18 @@ import { loadPdfWasm } from "./pdfWasm";
 import { HTML_DOCUMENT_CSS, pdfDocumentCss } from "./documentStyle";
 import type { ExportOptions } from "../exportOptions";
 
-let pdfRendererInitialized = false;
+let pdfRendererInitialization: Promise<void> | undefined;
+
+async function initializePdfRenderer(app: App): Promise<void> {
+	pdfRendererInitialization ??= loadPdfWasm(app)
+		.then((wasm) => init({ module_or_path: wasm }))
+		.then(() => undefined)
+		.catch((error: unknown) => {
+			pdfRendererInitialization = undefined;
+			throw error;
+		});
+	await pdfRendererInitialization;
+}
 
 export async function createExportFile(
 	markdown: string,
@@ -16,10 +27,7 @@ export async function createExportFile(
 	const html = await marked.parse(markdown);
 
 	if (options.type === "pdf") {
-		if (!pdfRendererInitialized) {
-			await init({ module_or_path: await loadPdfWasm(app) });
-			pdfRendererInitialized = true;
-		}
+		await initializePdfRenderer(app);
 
 		const title = options.includeTitle ? `<h1>${escapeHtml(file.basename)}</h1>` : "";
 		const pdfHtml = `<html><body><main class="export-note">${title}${html}</main></body></html>`;
@@ -31,8 +39,7 @@ export async function createExportFile(
 			metadata: { title: file.basename },
 		});
 		// Copy into an ArrayBuffer-backed view accepted by BlobPart.
-		const pdfBytes = new Uint8Array(pdf.byteLength);
-		pdfBytes.set(pdf);
+		const pdfBytes = Uint8Array.from(pdf);
 		return new File([pdfBytes.buffer], `${file.basename}.pdf`, { type: "application/pdf" });
 	}
 
@@ -59,10 +66,7 @@ export async function deliverExportFile(file: File): Promise<void> {
 			title: file.name,
 		};
 
-		if (
-			!navigator.share ||
-			(navigator.canShare && !navigator.canShare(shareData))
-		) {
+		if (!navigator.share || (navigator.canShare && !navigator.canShare(shareData))) {
 			throw new Error("File sharing is not supported on this device");
 		}
 

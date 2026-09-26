@@ -23,17 +23,6 @@ export class MobileExportSettingTab extends PluginSettingTab {
 		}];
 	}
 
-	getControlValue(key: string): unknown {
-		if (key === "enableOnDesktop") return this.plugin.settings.enableOnDesktop;
-		return undefined;
-	}
-
-	async setControlValue(key: string, value: unknown): Promise<void> {
-		if (key !== "enableOnDesktop" || typeof value !== "boolean") return;
-		this.plugin.settings.enableOnDesktop = value;
-		await this.plugin.saveData(this.plugin.settings);
-	}
-
 	display(): void {
 		this.containerEl.empty();
 
