@@ -1,26 +1,26 @@
 # Mobile Export
 
-Mobile Export is an Obsidian plugin for exporting notes as PDF or HTML on mobile devices.
+Export your Obsidian notes to **PDF** or **HTML**, directly from mobile. Mobile Export creates clean documents that are easy to share, print, or open outside Obsidian.
+
+![Mobile Export preview](./images/preview.png)
 
 ## Usage
 
-Open the context menu for a note or inside the editor, then select **Export**. Choose PDF or HTML and select **Export**. For PDF, you can include the file name as a title and adjust page size, orientation, margins, and text scale. Both formats include a self-contained, light document style for headings, links, code, quotes, tables, and images; exports do not depend on your Obsidian theme or external stylesheets.
+Open the context menu for a note or inside the editor and select **Export**.
+Choose between PDF and HTML. PDF exports can be customized with page size, orientation, margins, text size, and an optional title.
 
-## PDF runtime
+## Offline support
 
-On the first PDF export, the plugin downloads the version-pinned Takumi PDF WASM runtime from jsDelivr and caches it locally in the plugin folder. Later PDF exports use the cached runtime and work offline. Only the runtime is downloaded; note contents are never sent to jsDelivr.
+PDF export requires a small additional component that is downloaded from **jsDelivr** the first time you use it.
+After that, PDF export works offline. Your notes are never uploaded or sent to any external service.
 
-## Settings
+## Desktop
 
-In **Settings → Community plugins → Mobile Export**, turn off **Enable on desktop** to hide the plugin’s export options from desktop context menus. Export options remain available on mobile. The setting is on by default and takes effect immediately.
+Mobile Export also works on desktop. If you only want to use it on mobile, you can disable desktop support from **Settings → Community plugins → Mobile Export**.
 
-## Development
+## Language Support
+Mobile Export supports all languages that are supported by Obsidian. Please report any issues with your language to the [GitHub repository](https://github.com/clemenzi/obsidian-mobile-export/issues).
 
-Install dependencies and build the plugin with npm:
+## License
 
-```bash
-npm install
-npm run dev
-```
-
-For a production build, run `npm run build`. The build creates `main.js` in the plugin folder.
+See [LICENSE](./LICENSE).
