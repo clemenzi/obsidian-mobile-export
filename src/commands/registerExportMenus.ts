@@ -4,28 +4,32 @@ import { t } from "../i18n";
 import type MobileExportPlugin from "../main";
 
 export function registerExportMenus(plugin: MobileExportPlugin): void {
-	if (!Platform.isMobile && !plugin.settings.enableOnDesktop) return;
+	const isEnabled = () => Platform.isMobile || plugin.settings.enableOnDesktop;
 
 	plugin.registerEvent(
 		plugin.app.workspace.on("file-menu", (menu, file) => {
-			if (!(file instanceof TFile) || file.extension !== "md") return;
+			if (!isEnabled() || !(file instanceof TFile) || file.extension !== "md") return;
 
 			menu.addItem((item) => {
 				item
 					.setTitle(t("exportContext"))
 					.setIcon("document")
-					.onClick(() => new ExportModal(plugin.app, file).open());
+					.onClick(() => {
+						if (isEnabled()) new ExportModal(plugin.app, file).open();
+					});
 			});
 		}),
 	);
 
 	plugin.registerEvent(
 		plugin.app.workspace.on("editor-menu", (menu, _editor, view) => {
+			if (!isEnabled()) return;
 			menu.addItem((item) => {
 				item
 					.setTitle(t("exportContext"))
 					.setIcon("document")
 					.onClick(() => {
+						if (!isEnabled()) return;
 						if (!view.file) {
 							new Notice(t("noFile"));
 							return;
@@ -37,18 +41,21 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 		}),
 	);
 
-  plugin.addCommand({
-    id: "export-current-file",
-    name: t("exportFile"),
-    callback: () => {
-      const activeFile = plugin.app.workspace.getActiveFile();
+	plugin.addCommand({
+		id: "export-current-file",
+		name: t("exportFile"),
+		checkCallback: (checking) => {
+			if (!isEnabled()) return false;
+			if (checking) return true;
 
-      if (!activeFile) {
-        new Notice(t("noFile"));
-        return;
-      }
+			const activeFile = plugin.app.workspace.getActiveFile();
+			if (!activeFile) {
+				new Notice(t("noFile"));
+				return true;
+			}
 
-      new ExportModal(plugin.app, activeFile).open();
-    },
-  })
+			new ExportModal(plugin.app, activeFile).open();
+			return true;
+		},
+	});
 }
