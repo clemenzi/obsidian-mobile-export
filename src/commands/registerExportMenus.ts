@@ -11,7 +11,7 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 
 			menu.addItem((item) => {
 				item
-					.setTitle(t("exportFile"))
+					.setTitle(t("exportContext"))
 					.setIcon("document")
 					.onClick(() => new ExportModal(plugin.app, file).open());
 			});
@@ -24,7 +24,7 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 
 			menu.addItem((item) => {
 				item
-					.setTitle(t("exportFile"))
+					.setTitle(t("exportContext"))
 					.setIcon("document")
 					.onClick(() => {
 						if (!view.file) {
@@ -37,4 +37,19 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 			});
 		}),
 	);
+
+  plugin.addCommand({
+    id: "export-current-file",
+    name: t("exportFile"),
+    callback: () => {
+      const activeFile = plugin.app.workspace.getActiveFile();
+
+      if (!activeFile) {
+        new Notice(t("noFile"));
+        return;
+      }
+
+      new ExportModal(plugin.app, activeFile).open();
+    },
+  })
 }

@@ -3,7 +3,8 @@ import { getLanguage } from "obsidian";
 
 const translations = {
   en: {
-    exportFile: "Export file",
+    exportFile: "Export current file",
+    exportContext: "Export file",
     noFile: "No file found to export.",
     enableOnDesktop: "Enable on desktop",
     enableOnDesktopDescription: "Show export options in context menus on desktop. Mobile is always enabled.",
@@ -29,7 +30,8 @@ const translations = {
     exportFailed: "Export failed. See the console for details.",
   },
   it: {
-    exportFile: "Esporta file",
+    exportFile: "Esporta il file corrente",
+    exportContext: "Esporta file",
     noFile: "Nessun file da esportare.",
     enableOnDesktop: "Attiva su desktop",
     enableOnDesktopDescription: "Mostra le opzioni di esportazione nei menu contestuali su desktop. Su mobile sono sempre disponibili.",
@@ -56,6 +58,7 @@ const translations = {
   },
   de: {
     exportFile: "Datei exportieren",
+    exportContext: "Datei exportieren",
     noFile: "Keine Datei zum Exportieren gefunden.",
     enableOnDesktop: "Auf dem Desktop aktivieren",
     enableOnDesktopDescription: "Zeigt Exportoptionen in den Kontextmenüs auf dem Desktop an. Auf Mobilgeräten sind sie immer aktiviert.",
@@ -82,6 +85,7 @@ const translations = {
   },
   vi: {
     exportFile: "Xuất tệp",
+    exportContext: "Xuất tệp",
     noFile: "Không tìm thấy tệp để xuất.",
     enableOnDesktop: "Bật trên máy tính",
     enableOnDesktopDescription: "Hiển thị các tùy chọn xuất trong menu ngữ cảnh trên máy tính. Trên thiết bị di động, tính năng này luôn được bật.",
@@ -108,6 +112,7 @@ const translations = {
   },
   zh: {
     exportFile: "导出文件",
+    exportContext: "导出文件",
     noFile: "未找到可导出的文件。",
     enableOnDesktop: "在桌面端启用",
     enableOnDesktopDescription: "在桌面端的右键菜单中显示导出选项。移动端始终启用。",
@@ -134,6 +139,7 @@ const translations = {
   },
   uk: {
     exportFile: "Експортувати файл",
+    exportContext: "Експортувати файл",
     noFile: "Не знайдено файлу для експорту.",
     enableOnDesktop: "Увімкнути на комп’ютері",
     enableOnDesktopDescription: "Показувати параметри експорту в контекстних меню на комп’ютері. На мобільних пристроях вони завжди ввімкнені.",
@@ -160,6 +166,7 @@ const translations = {
   },
   nl: {
     exportFile: "Bestand exporteren",
+    exportContext: "Bestand exporteren",
     noFile: "Geen bestand gevonden om te exporteren.",
     enableOnDesktop: "Inschakelen op desktop",
     enableOnDesktopDescription: "Toon exportopties in contextmenu's op desktop. Op mobiel zijn ze altijd ingeschakeld.",
@@ -186,6 +193,7 @@ const translations = {
   },
   fr: {
     exportFile: "Exporter le fichier",
+    exportContext: "Exporter le fichier",
     noFile: "Aucun fichier à exporter n’a été trouvé.",
     enableOnDesktop: "Activer sur ordinateur",
     enableOnDesktopDescription: "Affiche les options d’exportation dans les menus contextuels sur ordinateur. Elles sont toujours activées sur mobile.",
@@ -212,6 +220,7 @@ const translations = {
   },
   pt: {
     exportFile: "Exportar arquivo",
+    exportContext: "Exportar arquivo",
     noFile: "Nenhum arquivo encontrado para exportar.",
     enableOnDesktop: "Ativar no desktop",
     enableOnDesktopDescription: "Mostra as opções de exportação nos menus de contexto no desktop. No celular, elas estão sempre ativadas.",
@@ -238,6 +247,7 @@ const translations = {
   },
   ar: {
     exportFile: "تصدير الملف",
+    exportContext: "تصدير الملف",
     noFile: "لم يتم العثور على ملف لتصديره.",
     enableOnDesktop: "التفعيل على سطح المكتب",
     enableOnDesktopDescription: "إظهار خيارات التصدير في القوائم السياقية على سطح المكتب. وهي مفعّلة دائمًا على الأجهزة المحمولة.",
@@ -264,6 +274,7 @@ const translations = {
   },
   da: {
     exportFile: "Eksportér fil",
+    exportContext: "Eksportér fil",
     noFile: "Der blev ikke fundet nogen fil at eksportere.",
     enableOnDesktop: "Aktivér på computer",
     enableOnDesktopDescription: "Vis eksportmuligheder i genvejsmenuer på computer. På mobilenheder er de altid aktiveret.",
@@ -290,6 +301,7 @@ const translations = {
   },
   ru: {
     exportFile: "Экспортировать файл",
+    exportContext: "Экспортировать файл",
     noFile: "Не найден файл для экспорта.",
     enableOnDesktop: "Включить на компьютере",
     enableOnDesktopDescription: "Показывать параметры экспорта в контекстных меню на компьютере. На мобильных устройствах они всегда включены.",
@@ -316,6 +328,7 @@ const translations = {
   },
   ro: {
     exportFile: "Exportă fișierul",
+    exportContext: "Exportă fișierul",
     noFile: "Nu a fost găsit niciun fișier de exportat.",
     enableOnDesktop: "Activează pe desktop",
     enableOnDesktopDescription: "Afișează opțiunile de export în meniurile contextuale pe desktop. Pe dispozitivele mobile sunt întotdeauna activate.",
@@ -342,6 +355,7 @@ const translations = {
   },
   es: {
     exportFile: "Exportar archivo",
+    exportContext: "Exportar archivo",
     noFile: "No se encontró ningún archivo para exportar.",
     enableOnDesktop: "Activar en escritorio",
     enableOnDesktopDescription: "Muestra las opciones de exportación en los menús contextuales del escritorio. En dispositivos móviles siempre están activadas.",
@@ -368,6 +382,7 @@ const translations = {
   },
   id: {
     exportFile: "Ekspor file",
+    exportContext: "Ekspor file",
     noFile: "Tidak ada file yang ditemukan untuk diekspor.",
     enableOnDesktop: "Aktifkan di desktop",
     enableOnDesktopDescription: "Tampilkan opsi ekspor di menu konteks pada desktop. Di perangkat seluler, opsi ini selalu aktif.",
@@ -394,6 +409,7 @@ const translations = {
   },
   km: {
     exportFile: "នាំចេញឯកសារ",
+    exportContext: "នាំចេញឯកសារ",
     noFile: "រកមិនឃើញឯកសារសម្រាប់នាំចេញទេ។",
     enableOnDesktop: "បើកនៅលើកុំព្យូទ័រ",
     enableOnDesktopDescription: "បង្ហាញជម្រើសនាំចេញក្នុងម៉ឺនុយបរិបទនៅលើកុំព្យូទ័រ។ នៅលើឧបករណ៍ចល័ត វាតែងតែបើក។",
@@ -420,6 +436,7 @@ const translations = {
   },
   ja: {
     exportFile: "ファイルをエクスポート",
+    exportContext: "ファイルをエクスポート",
     noFile: "エクスポートするファイルが見つかりません。",
     enableOnDesktop: "デスクトップで有効にする",
     enableOnDesktopDescription: "デスクトップのコンテキストメニューにエクスポートオプションを表示します。モバイルでは常に有効です。",
@@ -446,6 +463,7 @@ const translations = {
   },
   fa: {
     exportFile: "برون‌بری فایل",
+    exportContext: "برون‌بری فایل",
     noFile: "فایلی برای برون‌بری پیدا نشد.",
     enableOnDesktop: "فعال‌سازی در دسکتاپ",
     enableOnDesktopDescription: "گزینه‌های برون‌بری را در منوهای زمینه‌ای دسکتاپ نمایش می‌دهد. در موبایل همیشه فعال است.",
