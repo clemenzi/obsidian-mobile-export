@@ -1,6 +1,12 @@
 import type { PageSizeName } from "takumi-pdf/no-init";
 
-export const PDF_PAGE_SIZES = ["a3", "a4", "a5", "letter", "legal"] as const satisfies readonly PageSizeName[];
+export const PDF_PAGE_SIZES = [
+	"a3",
+	"a4",
+	"a5",
+	"letter",
+	"legal",
+] as const satisfies readonly PageSizeName[];
 export type PdfPageSize = (typeof PDF_PAGE_SIZES)[number];
 
 export type ExportOptions =
@@ -12,7 +18,7 @@ export type ExportOptions =
 			landscape: boolean;
 			margin: number;
 			scale: number;
-		};
+	  };
 
 export const DEFAULT_PDF_OPTIONS: Extract<ExportOptions, { type: "pdf" }> = {
 	type: "pdf",

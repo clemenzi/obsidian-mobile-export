@@ -11,16 +11,25 @@ export const DEFAULT_SETTINGS: MobileExportSettings = {
 };
 
 export class MobileExportSettingTab extends PluginSettingTab {
-	constructor(app: App, private readonly plugin: MobileExportPlugin) {
+	constructor(
+		app: App,
+		private readonly plugin: MobileExportPlugin,
+	) {
 		super(app, plugin);
 	}
 
 	getSettingDefinitions() {
-		return [{
-			name: t("enableOnDesktop"),
-			desc: t("enableOnDesktopDescription"),
-			control: { type: "toggle" as const, key: "enableOnDesktop", defaultValue: DEFAULT_SETTINGS.enableOnDesktop },
-		}];
+		return [
+			{
+				name: t("enableOnDesktop"),
+				desc: t("enableOnDesktopDescription"),
+				control: {
+					type: "toggle" as const,
+					key: "enableOnDesktop",
+					defaultValue: DEFAULT_SETTINGS.enableOnDesktop,
+				},
+			},
+		];
 	}
 
 	display(): void {
@@ -29,11 +38,11 @@ export class MobileExportSettingTab extends PluginSettingTab {
 		new Setting(this.containerEl)
 			.setName(t("enableOnDesktop"))
 			.setDesc(t("enableOnDesktopDescription"))
-			.addToggle((toggle) => toggle
-				.setValue(this.plugin.settings.enableOnDesktop)
-				.onChange(async (value) => {
+			.addToggle((toggle) =>
+				toggle.setValue(this.plugin.settings.enableOnDesktop).onChange(async (value) => {
 					this.plugin.settings.enableOnDesktop = value;
 					await this.plugin.saveData(this.plugin.settings);
-				}));
+				}),
+			);
 	}
 }

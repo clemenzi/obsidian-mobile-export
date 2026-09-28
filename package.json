@@ -1,7 +1,6 @@
 {
 	"name": "obsidian-mobile-export",
 	"version": "0.0.5",
-	"packageManager": "pnpm@12.6.0",
 	"description": "An Obsidian plugin to export notes on mobile devices",
 	"keywords": [],
 	"license": "0-BSD",
@@ -14,6 +13,11 @@
 		"lint": "eslint .",
 		"format": "oxfmt",
 		"format:check": "oxfmt --check"
+	},
+	"dependencies": {
+		"@takumi-rs/helpers": "^2.14.0",
+		"micromark": "^4.0.3",
+		"takumi-pdf": "0.15.0"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.4",
@@ -28,9 +32,5 @@
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.59.1"
 	},
-	"dependencies": {
-		"@takumi-rs/helpers": "^2.14.0",
-		"marked": "^18.0.14",
-		"takumi-pdf": "0.15.0"
-	}
+	"packageManager": "pnpm@12.6.0"
 }

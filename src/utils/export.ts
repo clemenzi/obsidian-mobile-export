@@ -1,5 +1,5 @@
 import { App, Platform, TFile } from "obsidian";
-import { marked } from "marked";
+import { renderMarkdown } from "./markdown";
 import init, { render } from "takumi-pdf/no-init";
 import { loadPdfWasm } from "./pdfWasm";
 import { HTML_DOCUMENT_CSS, pdfDocumentCss } from "./documentStyle";
@@ -24,7 +24,7 @@ export async function createExportFile(
 	file: TFile,
 	options: ExportOptions,
 ): Promise<File> {
-	const html = await marked.parse(markdown);
+	const html = renderMarkdown(markdown, app, file);
 
 	if (options.type === "pdf") {
 		await initializePdfRenderer(app);

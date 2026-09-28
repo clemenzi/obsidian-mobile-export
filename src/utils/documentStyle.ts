@@ -24,6 +24,7 @@ h4, h5, h6 { font-size: 1em; }
 p, ul, ol, pre, blockquote, table { margin: 0 0 1em; }
 li { margin-bottom: 0.25em; }
 a { color: #2563a6; text-decoration: underline; }
+mark { background: #fff3a3; color: inherit; }
 blockquote {
   margin-left: 0;
   padding: 0.25em 1em;
