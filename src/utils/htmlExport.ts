@@ -1,4 +1,3 @@
-import { TFile } from "obsidian";
 import { HTML_DOCUMENT_CSS } from "./documentCss";
 
 export function createHtmlDocument(html: string, title: string): File {
