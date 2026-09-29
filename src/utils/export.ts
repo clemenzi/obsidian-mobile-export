@@ -11,7 +11,7 @@ export async function createExportFile(
 	file: TFile,
 	options: ExportOptions,
 ): Promise<File> {
-	const html = renderMarkdown(markdown, app, file);
+	const html = renderMarkdown(markdown, app, file, options.type === "pdf");
 
 	if (options.type === "pdf") {
 		return createPdfFile(html, file, options, app, init, render);
