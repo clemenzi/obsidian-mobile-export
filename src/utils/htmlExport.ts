@@ -7,11 +7,7 @@ export function createHtmlDocument(html: string, title: string): File {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
-  <style>${HTML_DOCUMENT_CSS}
-/* MathML is rendered natively; no KaTeX fonts or network stylesheet needed. */
-math { font-size: 1em; }
-math[display="block"] { display: block; overflow-x: auto; }
-  </style>
+  <style>${HTML_DOCUMENT_CSS}</style>
 </head>
 <body>
 <main class="export-note">${html}</main>

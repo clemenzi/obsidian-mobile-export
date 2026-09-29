@@ -53,6 +53,8 @@ th, td { border: 1px solid #cbd5e1; padding: 0.5em; text-align: left; }
 th { background: #f1f5f9; }
 hr { border: 0; border-top: 1px solid #cbd5e1; margin: 1.5em 0; }
 img, video, iframe { max-width: 100%; }
+.math-inline img { vertical-align: middle; }
+.math-display img { max-width: 100%; height: auto; }
 audio { width: 100%; }
 iframe { width: 100%; min-height: 24rem; border: 1px solid #cbd5e1; }
 .math-display { display: block; margin: 1em 0; overflow-x: auto; text-align: center; }
