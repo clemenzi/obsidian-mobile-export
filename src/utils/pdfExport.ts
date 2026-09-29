@@ -1,6 +1,7 @@
 import type { App, TFile } from "obsidian";
 import type { RenderOptions } from "takumi-pdf/no-init";
 import type { ExportOptions } from "../exportOptions";
+import emojiFont from "@fontsource/noto-emoji/files/noto-emoji-2-400-normal.woff2";
 import { pdfDocumentCss } from "./documentCss";
 import { loadPdfWasm } from "./wasmLoader";
 
@@ -39,6 +40,10 @@ export async function createPdfFile(
 		landscape: options.landscape,
 		margin: options.margin,
 		css: pdfDocumentCss(options.scale),
+		// Offline fallback for the GFM footnote backlink (↩) and common emoji (✅).
+		fonts: [{ name: "Noto Emoji", data: emojiFont }],
+		// Other vault text may use glyphs the built-in fonts do not contain.
+		uncoveredText: "placeholder",
 		metadata: { title: file.basename },
 	});
 
