@@ -1,4 +1,3 @@
-import katexCss from "katex/dist/katex.min.css?inline";
 import { HTML_DOCUMENT_CSS } from "./documentCss";
 
 export function createHtmlDocument(html: string, title: string): File {
@@ -8,7 +7,7 @@ export function createHtmlDocument(html: string, title: string): File {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
-  <style>${HTML_DOCUMENT_CSS}\n${katexCss}</style>
+  <style>${HTML_DOCUMENT_CSS}</style>
 </head>
 <body>
 <main class="export-note">${html}</main>

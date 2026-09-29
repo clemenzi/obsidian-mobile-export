@@ -3,18 +3,16 @@ import { micromark } from "micromark";
 import { frontmatter, frontmatterHtml } from "micromark-extension-frontmatter";
 import { gfm, gfmHtml } from "micromark-extension-gfm";
 import { math, mathHtml } from "micromark-extension-math";
-import { renderCallouts } from "./obsidian/callouts";
-import { obsidianHtml } from "./obsidian/links";
-import { obsidianSyntax } from "./obsidian/syntax";
+import { obsidianHtml, obsidianSyntax, renderCallouts } from "./obsidianSyntax";
 
-export function renderMarkdown(markdown: string, app: App, file: TFile, forPdf = false): string {
+export function renderMarkdown(markdown: string, app: App, file: TFile): string {
 	const html = micromark(markdown, {
 		allowDangerousHtml: true,
 		extensions: [frontmatter(), gfm(), math(), obsidianSyntax()],
 		htmlExtensions: [
 			frontmatterHtml(),
 			gfmHtml(),
-			mathHtml({ output: forPdf ? "mathml" : "htmlAndMathml", throwOnError: false }),
+			mathHtml({ output: "mathml", throwOnError: false }),
 			obsidianHtml(app, file),
 		],
 	});
