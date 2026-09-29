@@ -31,6 +31,15 @@ blockquote {
   border-left: 3px solid #8ba9cd;
   color: #475569;
 }
+.callout {
+  padding: 0.75em 1em;
+  border: 1px solid #8ba9cd;
+  border-left-width: 4px;
+  border-radius: 0.35em;
+  background: #f5f8fc;
+}
+.callout-title { color: #1e4f85; font-weight: bold; }
+.callout p:last-child { margin-bottom: 0; }
 code, pre { font-family: monospace; }
 code, pre { background: #f1f5f9; }
 pre {
@@ -43,7 +52,10 @@ table { width: 100%; border-collapse: collapse; }
 th, td { border: 1px solid #cbd5e1; padding: 0.5em; text-align: left; }
 th { background: #f1f5f9; }
 hr { border: 0; border-top: 1px solid #cbd5e1; margin: 1.5em 0; }
-img { max-width: 100%; height: auto; }
+img, video, iframe { max-width: 100%; }
+audio { width: 100%; }
+iframe { width: 100%; min-height: 24rem; border: 1px solid #cbd5e1; }
+.math-display { display: block; margin: 1em 0; overflow-x: auto; text-align: center; }
 `;
 }
 
