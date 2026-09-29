@@ -1,6 +1,8 @@
 import type { App, TFile } from "obsidian";
 import type { RenderOptions } from "takumi-pdf/no-init";
 import type { ExportOptions } from "../exportOptions";
+import interRegular from "@fontsource/inter/files/inter-latin-400-normal.woff2";
+import interBold from "@fontsource/inter/files/inter-latin-700-normal.woff2";
 import emojiFont from "@fontsource/noto-emoji/files/noto-emoji-2-400-normal.woff2";
 import { pdfDocumentCss } from "./documentCss";
 import { loadPdfWasm } from "./wasmLoader";
@@ -40,9 +42,15 @@ export async function createPdfFile(
 		landscape: options.landscape,
 		margin: options.margin,
 		css: pdfDocumentCss(options.scale),
-		// Offline fallback for the GFM footnote backlink (↩) and common emoji (✅).
-		fonts: [{ name: "Noto Emoji", data: emojiFont }],
-		// Other vault text may use glyphs the built-in fonts do not contain.
+		// Latin text must use a matching face before the emoji fallback: using
+		// Noto Emoji alone also selects its unusually wide space glyph in Takumi.
+		fonts: [
+			{ name: "Inter", data: interRegular },
+			{ name: "Inter", weight: 700, data: interBold },
+			{ name: "Noto Emoji", data: emojiFont },
+		],
+		fontFamilies: ["Inter", "Noto Emoji"],
+		// Remaining unsupported glyphs should not prevent the whole PDF export.
 		uncoveredText: "placeholder",
 		metadata: { title: file.basename },
 	});

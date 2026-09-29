@@ -37,6 +37,8 @@ blockquote {
   border-left-width: 4px;
   border-radius: 0.35em;
   background: #f5f8fc;
+  break-inside: avoid;
+  box-decoration-break: clone;
 }
 .callout-title { color: #1e4f85; font-weight: bold; }
 .callout p:last-child { margin-bottom: 0; }
@@ -67,5 +69,7 @@ export const HTML_DOCUMENT_CSS = `${documentCss(16)}
 `;
 
 export function pdfDocumentCss(scale: number): string {
-	return documentCss((16 * scale) / 100);
+	return `${documentCss((16 * scale) / 100)}
+body { font-family: Inter, Arial, sans-serif; }
+`;
 }

@@ -19,7 +19,12 @@ function createRenderer() {
 	RegisterHTMLHandler(adaptor);
 	const document = mathjax.document("", {
 		InputJax: new TeX({ packages: ["base", "ams", "newcommand"] }),
-		OutputJax: new SVG({ fontCache: "local", font: new MathJaxNewcmFont() }),
+		// Inline linebreaking produces multiple SVGs; each formula must be one image.
+		OutputJax: new SVG({
+			fontCache: "local",
+			font: new MathJaxNewcmFont(),
+			linebreaks: { inline: false },
+		}),
 	});
 	return { adaptor, document };
 }
