@@ -4,7 +4,7 @@ import type { ExportOptions } from "../exportOptions";
 import interRegular from "@fontsource/inter/files/inter-latin-400-normal.woff2";
 import interBold from "@fontsource/inter/files/inter-latin-700-normal.woff2";
 import emojiFont from "@fontsource/noto-emoji/files/noto-emoji-2-400-normal.woff2";
-import { pdfDocumentCss } from "./documentCss";
+import { pdfDocumentCss } from "./pdfCss";
 import { loadPdfWasm } from "./wasmLoader";
 
 type PdfOptions = Extract<ExportOptions, { type: "pdf" }>;
