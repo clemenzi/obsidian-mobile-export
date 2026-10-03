@@ -21,7 +21,7 @@ export default defineConfig(
 			},
 			parserOptions: {
 				projectService: {
-					allowDefaultProject: ["eslint.config.mts", "manifest.json"],
+					allowDefaultProject: ["eslint.config.mts", "manifest.json", "scripts/pdfStyles.test.mjs"],
 				},
 				tsconfigRootDir: import.meta.dirname,
 				extraFileExtensions: [".json"],
@@ -29,4 +29,12 @@ export default defineConfig(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		files: ["scripts/pdfStyles.test.mjs"],
+		// Node-only tests import locally bundled source through a data URL.
+		rules: {
+			"obsidianmd/no-nodejs-modules": "off",
+			"no-unsanitized/method": "off",
+		},
+	},
 );
