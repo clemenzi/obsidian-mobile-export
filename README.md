@@ -9,12 +9,6 @@ Export your Obsidian notes to **PDF** or **HTML**, directly from mobile. Mobile 
 Open the context menu for a note or inside the editor and select **Export**.
 Choose between PDF and HTML. PDF exports can be customized with page size, orientation, margins, text size, and an optional title.
 
-## PDF appearance
-
-PDFs use a self-contained style inspired by Obsidian's default light theme: Inter text, purple links, subtle code blocks and tables, and colored callouts. All standard callout types and aliases are supported; unknown types use the note style. Custom titles and nested callouts are preserved, and folded callouts are always expanded in the static PDF.
-
-The PDF does not inherit your vault's theme or CSS snippets. HTML export styling is unchanged.
-
 ## Offline support and external assets
 
 PDF export requires a small additional component that is downloaded from **jsDelivr** the first time you use it.
