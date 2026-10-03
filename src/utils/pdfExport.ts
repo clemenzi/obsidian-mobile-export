@@ -3,6 +3,8 @@ import type { RenderOptions } from "takumi-pdf/no-init";
 import type { ExportOptions } from "../exportOptions";
 import interRegular from "@fontsource/inter/files/inter-latin-400-normal.woff2";
 import interBold from "@fontsource/inter/files/inter-latin-700-normal.woff2";
+import interItalic from "@fontsource/inter/files/inter-latin-400-italic.woff2";
+import interBoldItalic from "@fontsource/inter/files/inter-latin-700-italic.woff2";
 import emojiFont from "@fontsource/noto-emoji/files/noto-emoji-2-400-normal.woff2";
 import { pdfDocumentCss } from "./documentCss";
 import { loadPdfWasm } from "./wasmLoader";
@@ -47,6 +49,9 @@ export async function createPdfFile(
 		fonts: [
 			{ name: "Inter", data: interRegular },
 			{ name: "Inter", weight: 700, data: interBold },
+			// Use real italic faces instead of the renderer's synthetic slant.
+			{ name: "Inter", style: "italic", data: interItalic },
+			{ name: "Inter", weight: 700, style: "italic", data: interBoldItalic },
 			{ name: "Noto Emoji", data: emojiFont },
 		],
 		fontFamilies: ["Inter", "Noto Emoji"],
