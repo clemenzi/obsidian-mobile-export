@@ -154,7 +154,7 @@ img, video, iframe {
 }
 
 .math-inline img {
-  vertical-align: middle;
+  vertical-align: baseline;
 }
 
 .math-display img {

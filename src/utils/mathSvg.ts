@@ -36,16 +36,23 @@ function imageForMath(tex: string, display: boolean): string {
 	const svg = markup.match(/<svg\b[\s\S]*?<\/svg>/)?.[0];
 	if (!svg) throw new Error("MathJax did not produce an SVG image");
 
-	// MathJax sizes SVGs in ex; give <img> pixel dimensions for Takumi's
-	// image layout and replace CSS currentColor, which SVG images can't inherit.
-	const width = Number(svg.match(/\bwidth="([\d.]+)ex"/)?.[1]) * 8;
-	const height = Number(svg.match(/\bheight="([\d.]+)ex"/)?.[1]) * 8;
+	// New Computer Modern's x-height is 0.442em. Keep intrinsic pixel sizes
+	// for image decoding, but size the element in em so it follows nearby text.
+	const exToEm = 0.442;
+	const widthEm = Number(svg.match(/\bwidth="([\d.]+)ex"/)?.[1]) * exToEm;
+	const heightEm = Number(svg.match(/\bheight="([\d.]+)ex"/)?.[1]) * exToEm;
+	const baselineEm = Number(svg.match(/vertical-align:\s*(-?[\d.]+)ex/)?.[1] ?? 0) * exToEm;
+	const width = widthEm * 16;
+	const height = heightEm * 16;
 	const sized = svg
 		.replace(/\bwidth="[\d.]+ex"/, `width="${width}px"`)
 		.replace(/\bheight="[\d.]+ex"/, `height="${height}px"`)
 		.replace(/currentColor/g, "#253047");
 	const source = `data:image/svg+xml,${encodeURIComponent(sized)}`;
-	return `<img class="math-image" src="${source}" width="${width}" height="${height}" alt="${escapeHtml(tex)}">`;
+	// The SVG's baseline offset must be applied to the image itself: styles
+	// inside an SVG image cannot align it with the surrounding HTML text.
+	const alignment = display ? "" : ` vertical-align: ${baselineEm}em;`;
+	return `<img class="math-image" src="${source}" width="${width}" height="${height}" style="width: ${widthEm}em; height: ${heightEm}em;${alignment}" alt="${escapeHtml(tex)}">`;
 }
 
 export function mathSvgHtml(): HtmlExtension {
