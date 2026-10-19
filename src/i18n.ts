@@ -2,6 +2,30 @@ import { getLanguage } from "obsidian";
 
 const translations = {
 	en: {
+		bulkTitle: "Export notes",
+		selection: "Selected notes",
+		noteCount: (count: string) => `${count} notes`,
+		folderCount: (count: string) => `${count} folders`,
+		includeSubfolders: "Include subfolders",
+		deliveryMode: "Delivery",
+		exportZip: "Export as ZIP",
+		shareFiles: "Share files",
+		shareZip: "Share ZIP",
+		downloadZip: "Download ZIP",
+		prepareExport: "Prepare export",
+		configure: "Configure",
+		noMarkdown: "No Markdown notes found. Include subfolders or select another folder.",
+		shareDestinations:
+			"Destination apps may limit which files they accept. Files are shared without folders.",
+		zipFallback: "Multiple-file sharing is unavailable for this format. Export as ZIP instead.",
+		bulkProgress: (progress: string) => `Preparing ${progress}`,
+		bulkResult: "Export complete.",
+		successfulCount: (count: string) => `${count} successful`,
+		failedCount: (count: string) => `${count} failed`,
+		exportCancelled: "Export cancelled. No files were shared or downloaded.",
+		zipUnsupported: "ZIP sharing is unavailable on this device.",
+		filesUnsupported:
+			"This batch cannot be shared as individual files. Choose Configure and export as ZIP.",
 		exportFile: "Export current file",
 		exportContext: "Export file",
 		noFile: "No file found to export.",
@@ -517,6 +541,6 @@ type Locale = keyof typeof translations;
 export function t(key: TranslationKey, fileName = ""): string {
 	const language = getLanguage().toLowerCase().split("-")[0] as Locale;
 	const locale = translations[language] ?? translations.en;
-	const value = locale[key];
+	const value = (locale as Partial<typeof translations.en>)[key] ?? translations.en[key];
 	return typeof value === "function" ? value(fileName) : value;
 }

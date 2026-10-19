@@ -21,7 +21,7 @@ export default defineConfig(
 			},
 			parserOptions: {
 				projectService: {
-					allowDefaultProject: ["eslint.config.mts", "manifest.json"],
+					allowDefaultProject: ["eslint.config.mts", "manifest.json", "tests/*.mjs"],
 				},
 				tsconfigRootDir: import.meta.dirname,
 				extraFileExtensions: [".json"],
@@ -29,4 +29,14 @@ export default defineConfig(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		files: ["tests/*.mjs"],
+		languageOptions: { globals: globals.node },
+		rules: {
+			// These run in Node, outside the Obsidian WebView.
+			"obsidianmd/no-nodejs-modules": "off",
+			"obsidianmd/no-global-this": "off",
+			"obsidianmd/prefer-window-timers": "off",
+		},
+	},
 );
