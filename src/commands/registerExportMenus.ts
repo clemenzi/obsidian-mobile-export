@@ -28,7 +28,7 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 
 			menu.addItem((item) => {
 				item
-					.setTitle(t(file instanceof TFolder ? "export" : "exportContext"))
+					.setTitle(t(file instanceof TFolder ? "bulkTitle" : "exportContext"))
 					.setIcon("document")
 					.onClick(() => {
 						openExport([file]);
@@ -42,7 +42,7 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 			if (!isEnabled() || !files.length) return;
 			menu.addItem((item) =>
 				item
-					.setTitle(t("export"))
+					.setTitle(t("bulkTitle"))
 					.setIcon("document")
 					.onClick(() => openExport(files)),
 			);

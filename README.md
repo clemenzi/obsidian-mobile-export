@@ -6,12 +6,12 @@ Export your Obsidian notes to **PDF** or **HTML**, directly from mobile. Mobile 
 
 ## Usage
 
-Open the context menu for a note or inside the editor and select **Export**.
+Open the context menu for a note or inside the editor and select **Export file**.
 Choose between PDF and HTML. PDF exports can be customized with page size, orientation, margins, text size, and an optional title.
 
 ### Bulk export
 
-Select **Export** from a folder's context menu, or select multiple notes and folders in the file explorer and use their context menu. Choose PDF or HTML with the same PDF options used for a single note. **Include subfolders** controls recursive folder export; explicitly selected notes are always included. Non-Markdown files are ignored and overlapping selections are deduplicated.
+Select **Export notes** from a folder's context menu, or select multiple notes and folders in the file explorer and choose **Export notes** from their context menu. Choose PDF or HTML with the same PDF options used for a single note. **Include subfolders** controls recursive folder export; explicitly selected notes are always included. Non-Markdown files are ignored and overlapping selections are deduplicated.
 
 Select **Export** to process notes one at a time. After preparation, the dialog offers **Download ZIP** on desktop or the corresponding share action on mobile. Progress shows the current note, and **Cancel** stops before the next note and discards the batch. Review the successful/failed counts and any failed filenames before sharing or downloading. Successful notes remain available even if another note fails.
 
