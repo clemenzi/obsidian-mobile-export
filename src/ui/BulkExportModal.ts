@@ -29,7 +29,6 @@ export class BulkExportModal extends Modal {
 	private deliverySetting?: Setting;
 	private prepareButton!: ButtonComponent;
 	private deliverButton!: ButtonComponent;
-	private configureButton!: ButtonComponent;
 	private cancelButton!: ButtonComponent;
 	private controller?: AbortController;
 	private prepared?: PreparedBulkExport;
@@ -76,18 +75,9 @@ export class BulkExportModal extends Modal {
 				});
 			})
 			.addButton((button) => {
-				this.configureButton = button;
-				button.setButtonText(t("configure")).onClick(() => {
-					this.prepared = undefined;
-					this.status.empty();
-					this.configuration.hidden = false;
-					this.updateActions();
-				});
-			})
-			.addButton((button) => {
 				this.prepareButton = button;
 				button
-					.setButtonText(t("prepareExport"))
+					.setButtonText(t("export"))
 					.setCta()
 					.onClick(() => void this.prepare());
 			})
@@ -134,7 +124,6 @@ export class BulkExportModal extends Modal {
 	private updateActions(): void {
 		const busy = !!this.controller || this.sharing;
 		this.prepareButton.buttonEl.hidden = busy || !!this.prepared;
-		this.configureButton.buttonEl.hidden = busy || !this.configuration.hidden;
 		this.deliverButton.buttonEl.hidden = !this.prepared;
 		this.deliverButton.setDisabled(busy);
 		this.cancelButton.setDisabled(this.sharing);

@@ -13,10 +13,10 @@ Choose between PDF and HTML. PDF exports can be customized with page size, orien
 
 Select **Export** from a folder's context menu, or select multiple notes and folders in the file explorer and use their context menu. Choose PDF or HTML with the same PDF options used for a single note. **Include subfolders** controls recursive folder export; explicitly selected notes are always included. Non-Markdown files are ignored and overlapping selections are deduplicated.
 
-Select **Prepare export** to process notes one at a time. Progress shows the current note, and **Cancel** stops before the next note and discards the batch. Review the successful/failed counts and any failed filenames before sharing or downloading. Successful notes remain available even if another note fails.
+Select **Export** to process notes one at a time. After preparation, the dialog offers **Download ZIP** on desktop or the corresponding share action on mobile. Progress shows the current note, and **Cancel** stops before the next note and discards the batch. Review the successful/failed counts and any failed filenames before sharing or downloading. Successful notes remain available even if another note fails.
 
 - **Desktop:** download one ZIP. Enable desktop support in the plugin settings if the menu is hidden.
-- **iOS / Android:** share a ZIP, or choose **Share files** when the device supports multiple-file sharing for the selected format. Sharing starts with a separate tap after preparation. If the full batch cannot be shared, use **Configure** to prepare a ZIP instead. ZIP sharing also requires native file-sharing support. Destination apps may impose their own file limits.
+- **iOS / Android:** share a ZIP, or choose **Share files** when the device supports multiple-file sharing for the selected format. Sharing starts with a separate tap after preparation. If the full batch cannot be shared, select **Cancel**, reopen the export dialog, and choose ZIP instead. ZIP sharing also requires native file-sharing support. Destination apps may impose their own file limits.
 
 ZIP archives retain the selected folder as their root. Mixed selections retain vault-relative paths so notes with the same name stay distinct. Individual files shared through the native sheet do not preserve folders.
 

@@ -12,8 +12,6 @@ const translations = {
 		shareFiles: "Share files",
 		shareZip: "Share ZIP",
 		downloadZip: "Download ZIP",
-		prepareExport: "Prepare export",
-		configure: "Configure",
 		noMarkdown: "No Markdown notes found. Include subfolders or select another folder.",
 		shareDestinations:
 			"Destination apps may limit which files they accept. Files are shared without folders.",
@@ -25,7 +23,7 @@ const translations = {
 		exportCancelled: "Export cancelled. No files were shared or downloaded.",
 		zipUnsupported: "ZIP sharing is unavailable on this device.",
 		filesUnsupported:
-			"This batch cannot be shared as individual files. Choose Configure and export as ZIP.",
+			"This batch cannot be shared as individual files. Cancel and export as ZIP instead.",
 		exportFile: "Export current file",
 		exportContext: "Export file",
 		noFile: "No file found to export.",
@@ -64,8 +62,6 @@ const translations = {
 		shareFiles: "Condividi file",
 		shareZip: "Condividi ZIP",
 		downloadZip: "Scarica ZIP",
-		prepareExport: "Prepara esportazione",
-		configure: "Configura",
 		noMarkdown:
 			"Nessuna nota Markdown trovata. Includi le sottocartelle o seleziona un’altra cartella.",
 		shareDestinations:
@@ -79,7 +75,7 @@ const translations = {
 		exportCancelled: "Esportazione annullata. Nessun file è stato condiviso o scaricato.",
 		zipUnsupported: "La condivisione ZIP non è disponibile su questo dispositivo.",
 		filesUnsupported:
-			"Questa selezione non può essere condivisa come file singoli. Scegli Configura ed esporta come ZIP.",
+			"Questa selezione non può essere condivisa come file singoli. Annulla ed esporta come ZIP.",
 		exportFile: "Esporta il file corrente",
 		exportContext: "Esporta file",
 		noFile: "Nessun file da esportare.",
@@ -119,8 +115,6 @@ const translations = {
 		shareFiles: "Dateien teilen",
 		shareZip: "ZIP teilen",
 		downloadZip: "ZIP herunterladen",
-		prepareExport: "Export vorbereiten",
-		configure: "Konfigurieren",
 		noMarkdown:
 			"Keine Markdown-Notizen gefunden. Beziehe Unterordner ein oder wähle einen anderen Ordner.",
 		shareDestinations:
@@ -134,7 +128,7 @@ const translations = {
 		exportCancelled: "Export abgebrochen. Es wurden keine Dateien geteilt oder heruntergeladen.",
 		zipUnsupported: "Das Teilen von ZIP-Dateien ist auf diesem Gerät nicht verfügbar.",
 		filesUnsupported:
-			"Diese Auswahl kann nicht als einzelne Dateien geteilt werden. Wähle Konfigurieren und exportiere als ZIP.",
+			"Diese Auswahl kann nicht als einzelne Dateien geteilt werden. Brich ab und exportiere als ZIP.",
 		exportFile: "Datei exportieren",
 		exportContext: "Datei exportieren",
 		noFile: "Keine Datei zum Exportieren gefunden.",
@@ -174,8 +168,6 @@ const translations = {
 		shareFiles: "Chia sẻ tệp",
 		shareZip: "Chia sẻ ZIP",
 		downloadZip: "Tải ZIP xuống",
-		prepareExport: "Chuẩn bị xuất",
-		configure: "Cấu hình",
 		noMarkdown: "Không tìm thấy ghi chú Markdown. Hãy bao gồm thư mục con hoặc chọn thư mục khác.",
 		shareDestinations:
 			"Ứng dụng nhận có thể giới hạn các tệp được chấp nhận. Các tệp được chia sẻ không kèm thư mục.",
@@ -187,7 +179,7 @@ const translations = {
 		exportCancelled: "Đã hủy xuất. Không có tệp nào được chia sẻ hoặc tải xuống.",
 		zipUnsupported: "Thiết bị này không hỗ trợ chia sẻ ZIP.",
 		filesUnsupported:
-			"Không thể chia sẻ nhóm này dưới dạng các tệp riêng lẻ. Chọn Cấu hình và xuất dưới dạng ZIP.",
+			"Không thể chia sẻ nhóm này dưới dạng các tệp riêng lẻ. Hãy hủy và xuất dưới dạng ZIP.",
 		exportFile: "Xuất tệp",
 		exportContext: "Xuất tệp",
 		noFile: "Không tìm thấy tệp để xuất.",
@@ -226,8 +218,6 @@ const translations = {
 		shareFiles: "分享文件",
 		shareZip: "分享 ZIP",
 		downloadZip: "下载 ZIP",
-		prepareExport: "准备导出",
-		configure: "配置",
 		noMarkdown: "未找到 Markdown 笔记。请包含子文件夹或选择其他文件夹。",
 		shareDestinations: "目标应用可能会限制可接收的文件。分享文件时不保留文件夹。",
 		zipFallback: "此格式不支持多文件分享。请改为导出 ZIP。",
@@ -237,7 +227,7 @@ const translations = {
 		failedCount: (count: string) => `${count} 个失败`,
 		exportCancelled: "导出已取消。未分享或下载任何文件。",
 		zipUnsupported: "此设备不支持分享 ZIP。",
-		filesUnsupported: "无法将这批笔记作为单独的文件分享。请选择“配置”并导出为 ZIP。",
+		filesUnsupported: "无法将这批笔记作为单独的文件分享。请取消并改为导出 ZIP。",
 		exportFile: "导出文件",
 		exportContext: "导出文件",
 		noFile: "未找到可导出的文件。",
@@ -275,8 +265,6 @@ const translations = {
 		shareFiles: "Поділитися файлами",
 		shareZip: "Поділитися ZIP",
 		downloadZip: "Завантажити ZIP",
-		prepareExport: "Підготувати експорт",
-		configure: "Налаштувати",
 		noMarkdown: "Нотаток Markdown не знайдено. Включіть підпапки або виберіть іншу папку.",
 		shareDestinations:
 			"Цільові програми можуть обмежувати типи та кількість файлів. Файли передаються без папок.",
@@ -288,7 +276,7 @@ const translations = {
 		exportCancelled: "Експорт скасовано. Жодного файлу не надіслано й не завантажено.",
 		zipUnsupported: "На цьому пристрої недоступне надсилання ZIP.",
 		filesUnsupported:
-			"Цю добірку неможливо надіслати окремими файлами. Виберіть «Налаштувати» й експортуйте як ZIP.",
+			"Цю добірку неможливо надіслати окремими файлами. Скасуйте експорт і експортуйте як ZIP.",
 		exportFile: "Експортувати файл",
 		exportContext: "Експортувати файл",
 		noFile: "Не знайдено файлу для експорту.",
@@ -327,8 +315,6 @@ const translations = {
 		shareFiles: "Bestanden delen",
 		shareZip: "ZIP delen",
 		downloadZip: "ZIP downloaden",
-		prepareExport: "Export voorbereiden",
-		configure: "Configureren",
 		noMarkdown: "Geen Markdown-notities gevonden. Neem submappen op of selecteer een andere map.",
 		shareDestinations:
 			"Doelapps kunnen beperken welke bestanden ze accepteren. Bestanden worden zonder mappen gedeeld.",
@@ -341,7 +327,7 @@ const translations = {
 		exportCancelled: "Export geannuleerd. Er zijn geen bestanden gedeeld of gedownload.",
 		zipUnsupported: "Het delen van ZIP-bestanden is niet beschikbaar op dit apparaat.",
 		filesUnsupported:
-			"Deze selectie kan niet als afzonderlijke bestanden worden gedeeld. Kies Configureren en exporteer als ZIP.",
+			"Deze selectie kan niet als afzonderlijke bestanden worden gedeeld. Annuleer en exporteer als ZIP.",
 		exportFile: "Bestand exporteren",
 		exportContext: "Bestand exporteren",
 		noFile: "Geen bestand gevonden om te exporteren.",
@@ -382,8 +368,6 @@ const translations = {
 		shareFiles: "Partager les fichiers",
 		shareZip: "Partager le ZIP",
 		downloadZip: "Télécharger le ZIP",
-		prepareExport: "Préparer l’exportation",
-		configure: "Configurer",
 		noMarkdown:
 			"Aucune note Markdown trouvée. Incluez les sous-dossiers ou sélectionnez un autre dossier.",
 		shareDestinations:
@@ -397,7 +381,7 @@ const translations = {
 		exportCancelled: "Exportation annulée. Aucun fichier n’a été partagé ni téléchargé.",
 		zipUnsupported: "Le partage de fichiers ZIP n’est pas disponible sur cet appareil.",
 		filesUnsupported:
-			"Cette sélection ne peut pas être partagée sous forme de fichiers individuels. Choisissez Configurer et exportez en ZIP.",
+			"Cette sélection ne peut pas être partagée sous forme de fichiers individuels. Annulez et exportez en ZIP.",
 		exportFile: "Exporter le fichier",
 		exportContext: "Exporter le fichier",
 		noFile: "Aucun fichier à exporter n’a été trouvé.",
@@ -436,8 +420,6 @@ const translations = {
 		shareFiles: "Compartilhar arquivos",
 		shareZip: "Compartilhar ZIP",
 		downloadZip: "Baixar ZIP",
-		prepareExport: "Preparar exportação",
-		configure: "Configurar",
 		noMarkdown: "Nenhuma nota Markdown encontrada. Inclua subpastas ou selecione outra pasta.",
 		shareDestinations:
 			"Os aplicativos de destino podem limitar os arquivos aceitos. Os arquivos são compartilhados sem pastas.",
@@ -450,7 +432,7 @@ const translations = {
 		exportCancelled: "Exportação cancelada. Nenhum arquivo foi compartilhado ou baixado.",
 		zipUnsupported: "O compartilhamento de ZIP não está disponível neste dispositivo.",
 		filesUnsupported:
-			"Este lote não pode ser compartilhado como arquivos individuais. Escolha Configurar e exporte como ZIP.",
+			"Este lote não pode ser compartilhado como arquivos individuais. Cancele e exporte como ZIP.",
 		exportFile: "Exportar arquivo",
 		exportContext: "Exportar arquivo",
 		noFile: "Nenhum arquivo encontrado para exportar.",
@@ -489,8 +471,6 @@ const translations = {
 		shareFiles: "مشاركة الملفات",
 		shareZip: "مشاركة ZIP",
 		downloadZip: "تنزيل ZIP",
-		prepareExport: "تحضير التصدير",
-		configure: "إعداد",
 		noMarkdown: "لم يتم العثور على ملاحظات Markdown. ضمّن المجلدات الفرعية أو حدد مجلدًا آخر.",
 		shareDestinations:
 			"قد تفرض التطبيقات المستقبلة قيودًا على الملفات المقبولة. تتم مشاركة الملفات دون مجلدات.",
@@ -501,7 +481,8 @@ const translations = {
 		failedCount: (count: string) => `${count} فاشلة`,
 		exportCancelled: "تم إلغاء التصدير. لم تتم مشاركة أي ملفات أو تنزيلها.",
 		zipUnsupported: "مشاركة ZIP غير متاحة على هذا الجهاز.",
-		filesUnsupported: "لا يمكن مشاركة هذه المجموعة كملفات منفردة. اختر «إعداد» وصدّر بصيغة ZIP.",
+		filesUnsupported:
+			"لا يمكن مشاركة هذه المجموعة كملفات منفردة. ألغِ التصدير وصدّر بصيغة ZIP بدلًا من ذلك.",
 		exportFile: "تصدير الملف",
 		exportContext: "تصدير الملف",
 		noFile: "لم يتم العثور على ملف لتصديره.",
@@ -540,8 +521,6 @@ const translations = {
 		shareFiles: "Del filer",
 		shareZip: "Del ZIP",
 		downloadZip: "Download ZIP",
-		prepareExport: "Forbered eksport",
-		configure: "Konfigurer",
 		noMarkdown: "Ingen Markdown-noter fundet. Medtag undermapper, eller vælg en anden mappe.",
 		shareDestinations:
 			"Modtagerapps kan begrænse, hvilke filer de accepterer. Filer deles uden mapper.",
@@ -554,7 +533,7 @@ const translations = {
 		exportCancelled: "Eksport annulleret. Ingen filer blev delt eller downloadet.",
 		zipUnsupported: "Deling af ZIP er ikke tilgængelig på denne enhed.",
 		filesUnsupported:
-			"Dette udvalg kan ikke deles som individuelle filer. Vælg Konfigurer, og eksportér som ZIP.",
+			"Dette udvalg kan ikke deles som individuelle filer. Annuller, og eksportér som ZIP i stedet.",
 		exportFile: "Eksportér fil",
 		exportContext: "Eksportér fil",
 		noFile: "Der blev ikke fundet nogen fil at eksportere.",
@@ -593,8 +572,6 @@ const translations = {
 		shareFiles: "Поделиться файлами",
 		shareZip: "Поделиться ZIP",
 		downloadZip: "Скачать ZIP",
-		prepareExport: "Подготовить экспорт",
-		configure: "Настроить",
 		noMarkdown: "Заметки Markdown не найдены. Включите вложенные папки или выберите другую папку.",
 		shareDestinations:
 			"Приложения-получатели могут ограничивать принимаемые файлы. Файлы передаются без папок.",
@@ -606,7 +583,7 @@ const translations = {
 		exportCancelled: "Экспорт отменён. Файлы не были отправлены или скачаны.",
 		zipUnsupported: "На этом устройстве недоступна отправка ZIP.",
 		filesUnsupported:
-			"Эту подборку невозможно отправить отдельными файлами. Выберите «Настроить» и экспортируйте в ZIP.",
+			"Эту подборку невозможно отправить отдельными файлами. Отмените экспорт и экспортируйте в ZIP.",
 		exportFile: "Экспортировать файл",
 		exportContext: "Экспортировать файл",
 		noFile: "Не найден файл для экспорта.",
@@ -645,8 +622,6 @@ const translations = {
 		shareFiles: "Partajează fișierele",
 		shareZip: "Partajează ZIP",
 		downloadZip: "Descarcă ZIP",
-		prepareExport: "Pregătește exportul",
-		configure: "Configurează",
 		noMarkdown: "Nu s-au găsit note Markdown. Include subdosarele sau selectează alt dosar.",
 		shareDestinations:
 			"Aplicațiile destinatare pot limita fișierele acceptate. Fișierele sunt partajate fără dosare.",
@@ -659,7 +634,7 @@ const translations = {
 		exportCancelled: "Export anulat. Niciun fișier nu a fost partajat sau descărcat.",
 		zipUnsupported: "Partajarea ZIP nu este disponibilă pe acest dispozitiv.",
 		filesUnsupported:
-			"Acest lot nu poate fi partajat ca fișiere individuale. Alege Configurează și exportă ca ZIP.",
+			"Acest lot nu poate fi partajat ca fișiere individuale. Anulează și exportă ca ZIP.",
 		exportFile: "Exportă fișierul",
 		exportContext: "Exportă fișierul",
 		noFile: "Nu a fost găsit niciun fișier de exportat.",
@@ -699,8 +674,6 @@ const translations = {
 		shareFiles: "Compartir archivos",
 		shareZip: "Compartir ZIP",
 		downloadZip: "Descargar ZIP",
-		prepareExport: "Preparar exportación",
-		configure: "Configurar",
 		noMarkdown:
 			"No se encontraron notas Markdown. Incluye las subcarpetas o selecciona otra carpeta.",
 		shareDestinations:
@@ -713,7 +686,7 @@ const translations = {
 		exportCancelled: "Exportación cancelada. No se ha compartido ni descargado ningún archivo.",
 		zipUnsupported: "No se pueden compartir archivos ZIP en este dispositivo.",
 		filesUnsupported:
-			"Esta selección no se puede compartir como archivos individuales. Elige Configurar y exporta como ZIP.",
+			"Esta selección no se puede compartir como archivos individuales. Cancela y exporta como ZIP.",
 		exportFile: "Exportar archivo",
 		exportContext: "Exportar archivo",
 		noFile: "No se encontró ningún archivo para exportar.",
@@ -753,8 +726,6 @@ const translations = {
 		shareFiles: "Bagikan file",
 		shareZip: "Bagikan ZIP",
 		downloadZip: "Unduh ZIP",
-		prepareExport: "Siapkan ekspor",
-		configure: "Konfigurasi",
 		noMarkdown: "Tidak ditemukan catatan Markdown. Sertakan subfolder atau pilih folder lain.",
 		shareDestinations:
 			"Aplikasi tujuan dapat membatasi file yang diterima. File dibagikan tanpa folder.",
@@ -766,7 +737,7 @@ const translations = {
 		exportCancelled: "Ekspor dibatalkan. Tidak ada file yang dibagikan atau diunduh.",
 		zipUnsupported: "Berbagi ZIP tidak tersedia di perangkat ini.",
 		filesUnsupported:
-			"Kumpulan ini tidak dapat dibagikan sebagai file terpisah. Pilih Konfigurasi dan ekspor sebagai ZIP.",
+			"Kumpulan ini tidak dapat dibagikan sebagai file terpisah. Batalkan dan ekspor sebagai ZIP.",
 		exportFile: "Ekspor file",
 		exportContext: "Ekspor file",
 		noFile: "Tidak ada file yang ditemukan untuk diekspor.",
@@ -805,8 +776,6 @@ const translations = {
 		shareFiles: "ចែករំលែកឯកសារ",
 		shareZip: "ចែករំលែក ZIP",
 		downloadZip: "ទាញយក ZIP",
-		prepareExport: "រៀបចំការនាំចេញ",
-		configure: "កំណត់រចនាសម្ព័ន្ធ",
 		noMarkdown: "រកមិនឃើញកំណត់ត្រា Markdown ទេ។ សូមរួមបញ្ចូលថតរង ឬជ្រើសរើសថតផ្សេង។",
 		shareDestinations: "កម្មវិធីទទួលអាចកំណត់ប្រភេទឯកសារដែលទទួលយក។ ឯកសារត្រូវបានចែករំលែកដោយគ្មានថត។",
 		zipFallback: "ការចែករំលែកឯកសារច្រើនមិនមានសម្រាប់ទ្រង់ទ្រាយនេះទេ។ សូមនាំចេញជា ZIP ជំនួសវិញ។",
@@ -816,8 +785,7 @@ const translations = {
 		failedCount: (count: string) => `${count} បរាជ័យ`,
 		exportCancelled: "ការនាំចេញត្រូវបានបោះបង់។ គ្មានឯកសារណាមួយត្រូវបានចែករំលែក ឬទាញយកទេ។",
 		zipUnsupported: "ការចែករំលែក ZIP មិនមាននៅលើឧបករណ៍នេះទេ។",
-		filesUnsupported:
-			"មិនអាចចែករំលែកក្រុមនេះជាឯកសារដាច់ដោយឡែកបានទេ។ សូមជ្រើសរើស កំណត់រចនាសម្ព័ន្ធ ហើយនាំចេញជា ZIP។",
+		filesUnsupported: "មិនអាចចែករំលែកក្រុមនេះជាឯកសារដាច់ដោយឡែកបានទេ។ សូមបោះបង់ ហើយនាំចេញជា ZIP ជំនួសវិញ។",
 		exportFile: "នាំចេញឯកសារ",
 		exportContext: "នាំចេញឯកសារ",
 		noFile: "រកមិនឃើញឯកសារសម្រាប់នាំចេញទេ។",
@@ -855,8 +823,6 @@ const translations = {
 		shareFiles: "ファイルを共有",
 		shareZip: "ZIP を共有",
 		downloadZip: "ZIP をダウンロード",
-		prepareExport: "エクスポートを準備",
-		configure: "設定",
 		noMarkdown:
 			"Markdown ノートが見つかりません。サブフォルダーを含めるか、別のフォルダーを選択してください。",
 		shareDestinations:
@@ -870,7 +836,7 @@ const translations = {
 			"エクスポートをキャンセルしました。ファイルは共有もダウンロードもされていません。",
 		zipUnsupported: "このデバイスでは ZIP を共有できません。",
 		filesUnsupported:
-			"この選択内容は個別のファイルとして共有できません。「設定」を選択して ZIP としてエクスポートしてください。",
+			"この選択内容は個別のファイルとして共有できません。キャンセルして ZIP としてエクスポートしてください。",
 		exportFile: "ファイルをエクスポート",
 		exportContext: "ファイルをエクスポート",
 		noFile: "エクスポートするファイルが見つかりません。",
@@ -909,8 +875,6 @@ const translations = {
 		shareFiles: "اشتراک‌گذاری فایل‌ها",
 		shareZip: "اشتراک‌گذاری ZIP",
 		downloadZip: "بارگیری ZIP",
-		prepareExport: "آماده‌سازی برون‌بری",
-		configure: "پیکربندی",
 		noMarkdown:
 			"هیچ یادداشت Markdown پیدا نشد. زیرپوشه‌ها را هم شامل کنید یا پوشهٔ دیگری را انتخاب کنید.",
 		shareDestinations:
@@ -923,7 +887,7 @@ const translations = {
 		exportCancelled: "برون‌بری لغو شد. هیچ فایلی به اشتراک گذاشته یا بارگیری نشد.",
 		zipUnsupported: "اشتراک‌گذاری ZIP در این دستگاه در دسترس نیست.",
 		filesUnsupported:
-			"این مجموعه را نمی‌توان به‌صورت فایل‌های جداگانه به اشتراک گذاشت. «پیکربندی» را انتخاب کنید و به‌صورت ZIP برون‌بری کنید.",
+			"این مجموعه را نمی‌توان به‌صورت فایل‌های جداگانه به اشتراک گذاشت. لغو کنید و به‌صورت ZIP برون‌بری کنید.",
 		exportFile: "برون‌بری فایل",
 		exportContext: "برون‌بری فایل",
 		noFile: "فایلی برای برون‌بری پیدا نشد.",
