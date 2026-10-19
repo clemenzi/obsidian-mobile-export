@@ -27,8 +27,8 @@ export class BulkExportModal extends Modal {
 	private summary!: HTMLElement;
 	private status!: HTMLElement;
 	private deliverySetting?: Setting;
-	private prepareButton!: ButtonComponent;
-	private deliverButton!: ButtonComponent;
+	private exportButton!: ButtonComponent;
+	private noteCount = 0;
 	private cancelButton!: ButtonComponent;
 	private controller?: AbortController;
 	private prepared?: PreparedBulkExport;
@@ -75,18 +75,13 @@ export class BulkExportModal extends Modal {
 				});
 			})
 			.addButton((button) => {
-				this.prepareButton = button;
-				button
-					.setButtonText(t("export"))
-					.setCta()
-					.onClick(() => void this.prepare());
-			})
-			.addButton((button) => {
-				this.deliverButton = button;
-				button.setCta().onClick(() => void this.deliver());
+				this.exportButton = button;
+				button.setCta().onClick(() => {
+					if (this.prepared) void this.deliver();
+					else void this.prepare();
+				});
 			});
 		this.updateScope();
-		this.updateActions();
 	}
 
 	onClose(): void {
@@ -102,8 +97,9 @@ export class BulkExportModal extends Modal {
 		this.summary.setText(
 			`${this.scopeName}: ${t("noteCount", String(files.length))}, ${t("folderCount", String(folders.size))}`,
 		);
-		this.prepareButton?.setDisabled(files.length === 0);
+		this.noteCount = files.length;
 		if (!files.length) this.summary.setText(t("noMarkdown"));
+		this.updateActions();
 	}
 
 	private updateDelivery(): void {
@@ -123,19 +119,18 @@ export class BulkExportModal extends Modal {
 
 	private updateActions(): void {
 		const busy = !!this.controller || this.sharing;
-		this.prepareButton.buttonEl.hidden = busy || !!this.prepared;
-		this.deliverButton.buttonEl.hidden = !this.prepared;
-		this.deliverButton.setDisabled(busy);
-		this.cancelButton.setDisabled(this.sharing);
-		this.deliverButton.setButtonText(
-			t(
-				this.prepared?.mode === "share-files"
+		let label = t("export");
+		if (this.prepared) {
+			label = t(
+				this.prepared.mode === "share-files"
 					? "shareFiles"
 					: Platform.isMobile
 						? "shareZip"
 						: "downloadZip",
-			),
-		);
+			);
+		}
+		this.exportButton.setButtonText(label).setDisabled(busy || (!this.prepared && !this.noteCount));
+		this.cancelButton.setDisabled(this.sharing);
 	}
 
 	private async prepare(): Promise<void> {
@@ -149,7 +144,7 @@ export class BulkExportModal extends Modal {
 		this.controller = controller;
 		this.prepared = undefined;
 		this.status.empty();
-		this.configuration.hidden = true;
+		this.configuration.hide();
 		this.updateActions();
 		try {
 			const report = await prepareBulkExport(
@@ -190,8 +185,7 @@ export class BulkExportModal extends Modal {
 			if (this.controller === controller) {
 				this.controller = undefined;
 				if (controller.signal.aborted) this.status.setText(t("exportCancelled"));
-				if (!this.prepared) this.configuration.hidden = false;
-				this.updateActions();
+				if (!this.prepared) this.configuration.show();
 				this.updateScope();
 			}
 		}
