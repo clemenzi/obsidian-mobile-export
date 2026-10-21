@@ -24,10 +24,11 @@ Exports are prepared locally. The finished ZIP or shared files still occupy memo
 
 ## Offline support and external assets
 
-PDF export requires a small additional component that is downloaded from **jsDelivr** the first time you use it.
-After that, PDF export works offline. Your notes are never uploaded or sent to any external service.
+PDF export downloads [Takumi PDF for browser use (WASM)](https://takumi.kane.tw/docs/pdf#in-the-browser) from **jsDelivr** on first use. Its exact version is pinned by the plugin's dependency in [package.json](./package.json). A plugin update that changes this version requires a new download. Requests go to `cdn.jsdelivr.net` for this component; your notes and filenames are never uploaded or sent to that service.
 
-_The component in question is [Takumi PDF for browser use (WASM)](https://takumi.kane.tw/docs/pdf#in-the-browser), the current downloaded version is `0.15.0`_
+After a successful download, PDF export works offline. The component is cached in the plugin folder inside the vault's configuration directory. Both cached and downloaded bytes are checked against a SHA-256 digest embedded during the plugin build. A damaged cache is repaired automatically when the network is available. Older cached versions are retained for downgrades.
+
+If the component cannot be downloaded or repaired, reconnect to the internet, check access to jsDelivr, then reopen the export dialog and retry. Storage errors require checking vault space and permissions. See [PDF WASM maintenance](./docs/pdf-wasm.md) for build verification and the community distribution policy review.
 
 ## Desktop
 
