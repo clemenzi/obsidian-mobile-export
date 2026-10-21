@@ -13,7 +13,9 @@ export async function getTakumiMetadata() {
 	const installed = JSON.parse(await readFile(join(dirname(wasmPath), "../package.json"), "utf8"));
 	const version = project.dependencies["takumi-pdf"];
 	if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version) || version !== installed.version) {
-		throw new Error("Pin takumi-pdf to an exact version and install matching dependencies before building.");
+		throw new Error(
+			"Pin takumi-pdf to an exact version and install matching dependencies before building.",
+		);
 	}
 	const wasm = await readFile(wasmPath);
 	if (!WebAssembly.validate(wasm)) {
