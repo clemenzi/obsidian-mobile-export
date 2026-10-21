@@ -35,6 +35,13 @@ export default defineConfig(
 	{
 		...tseslint.configs.disableTypeChecked,
 		files: ["scripts/**/*.mjs", "tests/**/*.mjs"],
+		rules: {
+			...tseslint.configs.disableTypeChecked.rules,
+			// Build tooling and tests run in Node, outside the Obsidian runtime.
+			"obsidianmd/no-nodejs-modules": "off",
+			"obsidianmd/no-global-this": "off",
+			"no-unsanitized/method": "off",
+		},
 		languageOptions: {
 			globals: globals.node,
 			parserOptions: { projectService: false, project: false },
