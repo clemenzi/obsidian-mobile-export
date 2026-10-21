@@ -1,7 +1,6 @@
 import { App, requestUrl } from "obsidian";
 
-// Keep this version in sync with the exact takumi-pdf dependency in package.json.
-const TAKUMI_VERSION = "0.15.0";
+const TAKUMI_VERSION = __TAKUMI_VERSION__;
 const WASM_URL = `https://cdn.jsdelivr.net/npm/takumi-pdf@${TAKUMI_VERSION}/pkg/takumi_pdf_wasm_bg.wasm`;
 
 export async function loadPdfWasm(app: App): Promise<ArrayBuffer> {
