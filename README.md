@@ -13,10 +13,10 @@ Choose between PDF and HTML. PDF exports can be customized with page size, orien
 
 Select **Export notes** from a folder's context menu, or select multiple notes and folders in the file explorer and choose **Export notes** from their context menu. Choose PDF or HTML with the same PDF options used for a single note. **Include subfolders** controls recursive folder export; explicitly selected notes are always included. Non-Markdown files are ignored and overlapping selections are deduplicated.
 
-Select **Export** to process notes one at a time. After preparation, the dialog offers **Download ZIP** on desktop or the corresponding share action on mobile. Progress shows the current note, and **Cancel** stops before the next note and discards the batch. Review the successful/failed counts and any failed filenames before sharing or downloading. Successful notes remain available even if another note fails.
+Select **Export** to process notes one at a time. The same dialog keeps your options visible and shows a progress bar with the current note. On desktop, the ZIP download starts automatically when preparation finishes. **Cancel** stops before the next note and discards the batch. Failed notes are listed in the dialog and a notification; successful notes are still exported.
 
 - **Desktop:** download one ZIP. Enable desktop support in the plugin settings if the menu is hidden.
-- **iOS / Android:** share individual files by default. Turn on **Export as a ZIP** to package the notes into one archive instead. Sharing starts with a separate tap after preparation. If the full batch cannot be shared, select **Cancel**, reopen the export dialog, and turn on **Export as a ZIP**. Both modes require native file-sharing support, and destination apps may impose their own file limits.
+- **iOS / Android:** share individual files by default. Turn on **Export as a ZIP** to package the notes into one archive instead. Sharing opens automatically after preparation when the device still permits it. If a fresh tap is required by the system, select **Share files** or **Share ZIP** in the same dialog. If the full batch cannot be shared, select **Cancel**, reopen the export dialog, and turn on **Export as a ZIP**. Both modes require native file-sharing support, and destination apps may impose their own file limits.
 
 ZIP archives retain the selected folder as their root. Mixed selections retain vault-relative paths so notes with the same name stay distinct. Individual files shared through the native sheet do not preserve folders.
 

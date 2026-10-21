@@ -22,6 +22,7 @@ export class BulkExportModal extends Modal {
 	private configuration!: HTMLElement;
 	private summary!: HTMLElement;
 	private status!: HTMLElement;
+	private progress!: HTMLProgressElement;
 	private exportButton!: ButtonComponent;
 	private noteCount = 0;
 	private cancelButton!: ButtonComponent;
@@ -55,12 +56,17 @@ export class BulkExportModal extends Modal {
 		}
 		this.form = new ExportOptionsForm(this.configuration);
 		if (Platform.isMobile) {
-			new Setting(this.configuration).setName(t("exportZip")).addToggle((toggle) =>
-				toggle.setValue(this.exportAsZip).onChange((value) => {
-					this.exportAsZip = value;
-				}),
-			);
+			new Setting(this.configuration)
+				.setName(t("exportZip"))
+				.setDesc(t("exportZipDescription"))
+				.addToggle((toggle) =>
+					toggle.setValue(this.exportAsZip).onChange((value) => {
+						this.exportAsZip = value;
+					}),
+				);
 		}
+		this.progress = this.contentEl.createEl("progress", { attr: { "aria-label": t("export") } });
+		this.progress.hide();
 		this.status = this.contentEl.createDiv({ attr: { role: "status", "aria-live": "polite" } });
 		new Setting(this.contentEl)
 			.addButton((button) => {
@@ -102,6 +108,7 @@ export class BulkExportModal extends Modal {
 
 	private updateActions(): void {
 		const busy = !!this.controller || this.sharing;
+		this.configuration.inert = busy || !!this.prepared;
 		let label = t("export");
 		if (this.prepared) {
 			label = t(
@@ -127,7 +134,9 @@ export class BulkExportModal extends Modal {
 		this.controller = controller;
 		this.prepared = undefined;
 		this.status.empty();
-		this.configuration.hide();
+		this.progress.max = files.length;
+		this.progress.value = 0;
+		this.progress.show();
 		this.updateActions();
 		try {
 			const report = await prepareBulkExport(
@@ -138,25 +147,29 @@ export class BulkExportModal extends Modal {
 				this.exportAsZip ? "zip" : "share-files",
 				archiveName(this.scopeName),
 				(progress) => {
-					if (!controller.signal.aborted)
-						this.status.setText(
-							t(
-								"bulkProgress",
-								`${progress.completed} / ${progress.total}: ${progress.currentFile}`,
-							),
-						);
+					if (controller.signal.aborted) return;
+					this.progress.value = progress.completed;
+					this.status.setText(
+						t("bulkProgress", `${progress.completed} / ${progress.total}: ${progress.currentFile}`),
+					);
 				},
 				controller.signal,
 			);
 			if (controller.signal.aborted) return;
 			this.prepared = report.result ?? undefined;
-			this.status.setText(
-				`${t("bulkResult")} ${t("successfulCount", String(report.succeeded))}, ${t("failedCount", String(report.failures.length))}.`,
-			);
+			this.status.empty();
 			if (report.failures.length) {
+				this.status.setText(
+					`${t("successfulCount", String(report.succeeded))}, ${t("failedCount", String(report.failures.length))}.`,
+				);
 				const list = this.status.createEl("ul");
 				for (const failure of report.failures)
 					list.createEl("li", { text: `${failure.path}: ${failure.reason}` });
+				// Keep failures visible even when automatic delivery closes the modal.
+				new Notice(
+					`${t("failedCount", String(report.failures.length))}:\n${report.failures.map((failure) => failure.path).join("\n")}`,
+					10000,
+				);
 			}
 		} catch (error) {
 			if (!controller.signal.aborted) {
@@ -168,9 +181,17 @@ export class BulkExportModal extends Modal {
 			if (this.controller === controller) {
 				this.controller = undefined;
 				if (controller.signal.aborted) this.status.setText(t("exportCancelled"));
-				if (!this.prepared) this.configuration.show();
+				if (!this.prepared) this.progress.hide();
 				this.updateScope();
 			}
+		}
+		if (
+			!controller.signal.aborted &&
+			this.prepared &&
+			(!Platform.isMobile || navigator.userActivation?.isActive)
+		) {
+			// Desktop downloads need no second confirmation. Native sharing may require a fresh tap.
+			await this.deliver();
 		}
 	}
 
@@ -186,7 +207,7 @@ export class BulkExportModal extends Modal {
 					new Notice(t(prepared.mode === "zip" ? "zipUnsupported" : "filesUnsupported"));
 					return;
 				}
-				// Called directly from this button's click, before awaiting any work.
+				// Preserve activation when called from the button or immediately after a short preparation.
 				await shareFiles(files, this.scopeName);
 			} else if (prepared.mode === "zip") await deliverExportFile(prepared.archive);
 			this.close();
