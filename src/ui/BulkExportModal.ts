@@ -108,7 +108,8 @@ export class BulkExportModal extends Modal {
 
 	private updateActions(): void {
 		const busy = !!this.controller || this.sharing;
-		this.configuration.inert = busy || !!this.prepared;
+		this.configuration.toggle(!busy && !this.prepared);
+		this.exportButton.buttonEl.toggle(!busy);
 		let label = t("export");
 		if (this.prepared) {
 			label = t(
