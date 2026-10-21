@@ -3,6 +3,7 @@ import { createExportFile, deliverExportFile } from "../utils/export";
 import type { ExportOptions } from "../exportOptions";
 import { ExportOptionsForm } from "./ExportOptionsForm";
 import { t } from "../i18n";
+import { PdfWasmError } from "../utils/wasmLoader";
 
 export class ExportModal extends Modal {
 	private form!: ExportOptionsForm;
@@ -91,6 +92,6 @@ export class ExportModal extends Modal {
 
 	private reportFailure(error: unknown): void {
 		console.error("Failed to export file", error);
-		new Notice(t("exportFailed"));
+		new Notice(error instanceof PdfWasmError ? error.message : t("exportFailed"), 10000);
 	}
 }
