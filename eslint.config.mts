@@ -1,5 +1,6 @@
 import obsidianmd from "eslint-plugin-obsidianmd";
 import globals from "globals";
+import tseslint from "typescript-eslint";
 import { globalIgnores, defineConfig } from "eslint/config";
 
 export default defineConfig(
@@ -18,6 +19,8 @@ export default defineConfig(
 		languageOptions: {
 			globals: {
 				...globals.browser,
+				__TAKUMI_VERSION__: "readonly",
+				__TAKUMI_WASM_SHA256__: "readonly",
 			},
 			parserOptions: {
 				projectService: {
@@ -29,4 +32,12 @@ export default defineConfig(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		...tseslint.configs.disableTypeChecked,
+		files: ["scripts/**/*.mjs", "tests/**/*.mjs"],
+		languageOptions: {
+			globals: globals.node,
+			parserOptions: { projectService: false, project: false },
+		},
+	},
 );
