@@ -9,24 +9,19 @@ import {
 	TFolder,
 } from "obsidian";
 import { t } from "../i18n";
-import {
-	prepareBulkExport,
-	type BulkDeliveryMode,
-	type PreparedBulkExport,
-} from "../utils/bulkExport";
+import { prepareBulkExport, type PreparedBulkExport } from "../utils/bulkExport";
 import { archiveName, collectMarkdownFiles } from "../utils/exportTargets";
 import { deliverExportFile } from "../utils/export";
-import { canShareFiles, shareFiles, supportsMultipleFiles } from "../utils/share";
+import { canShareFiles, shareFiles } from "../utils/share";
 import { ExportOptionsForm } from "./ExportOptionsForm";
 
 export class BulkExportModal extends Modal {
 	private includeSubfolders = true;
-	private mode: BulkDeliveryMode = "zip";
+	private exportAsZip = !Platform.isMobile;
 	private form!: ExportOptionsForm;
 	private configuration!: HTMLElement;
 	private summary!: HTMLElement;
 	private status!: HTMLElement;
-	private deliverySetting?: Setting;
 	private exportButton!: ButtonComponent;
 	private noteCount = 0;
 	private cancelButton!: ButtonComponent;
@@ -58,10 +53,13 @@ export class BulkExportModal extends Modal {
 				}),
 			);
 		}
-		this.form = new ExportOptionsForm(this.configuration, () => this.updateDelivery());
+		this.form = new ExportOptionsForm(this.configuration);
 		if (Platform.isMobile) {
-			this.deliverySetting = new Setting(this.configuration).setName(t("deliveryMode"));
-			this.updateDelivery();
+			new Setting(this.configuration).setName(t("exportZip")).addToggle((toggle) =>
+				toggle.setValue(this.exportAsZip).onChange((value) => {
+					this.exportAsZip = value;
+				}),
+			);
 		}
 		this.status = this.contentEl.createDiv({ attr: { role: "status", "aria-live": "polite" } });
 		new Setting(this.contentEl)
@@ -102,21 +100,6 @@ export class BulkExportModal extends Modal {
 		this.updateActions();
 	}
 
-	private updateDelivery(): void {
-		if (!this.deliverySetting) return;
-		const supported = supportsMultipleFiles(this.form.options.type);
-		if (!supported) this.mode = "zip";
-		this.deliverySetting.controlEl.empty();
-		this.deliverySetting.setDesc(t(supported ? "shareDestinations" : "zipFallback"));
-		this.deliverySetting.addDropdown((dropdown) => {
-			dropdown.addOption("zip", t("exportZip"));
-			if (supported) dropdown.addOption("share-files", t("shareFiles"));
-			dropdown.setValue(this.mode).onChange((value) => {
-				this.mode = value === "share-files" ? "share-files" : "zip";
-			});
-		});
-	}
-
 	private updateActions(): void {
 		const busy = !!this.controller || this.sharing;
 		let label = t("export");
@@ -152,7 +135,7 @@ export class BulkExportModal extends Modal {
 				files,
 				this.targets,
 				this.form.options,
-				this.mode,
+				this.exportAsZip ? "zip" : "share-files",
 				archiveName(this.scopeName),
 				(progress) => {
 					if (!controller.signal.aborted)

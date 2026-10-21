@@ -15,7 +15,7 @@ export class ExportOptionsForm {
 		return this.fileType === "pdf" ? { ...this.pdfOptions } : { type: "html" };
 	}
 
-	constructor(container: HTMLElement, onChange: () => void) {
+	constructor(container: HTMLElement, onChange?: () => void) {
 		new Setting(container)
 			.setName(t("fileType"))
 			.setDesc(t("fileTypeDescription"))
@@ -27,7 +27,7 @@ export class ExportOptionsForm {
 					.onChange((value) => {
 						this.fileType = value as ExportOptions["type"];
 						pdfSettings.style.display = this.fileType === "pdf" ? "" : "none";
-						onChange();
+						onChange?.();
 					});
 			});
 
@@ -39,7 +39,7 @@ export class ExportOptionsForm {
 			.addToggle((toggle) =>
 				toggle.setValue(this.pdfOptions.includeTitle).onChange((value) => {
 					this.pdfOptions.includeTitle = value;
-					onChange();
+					onChange?.();
 				}),
 			);
 
@@ -53,7 +53,7 @@ export class ExportOptionsForm {
 				dropdown.setValue(this.pdfOptions.pageSize).onChange((value) => {
 					if (isPdfPageSize(value)) {
 						this.pdfOptions.pageSize = value;
-						onChange();
+						onChange?.();
 					}
 				});
 			});
@@ -64,7 +64,7 @@ export class ExportOptionsForm {
 			.addToggle((toggle) =>
 				toggle.setValue(this.pdfOptions.landscape).onChange((value) => {
 					this.pdfOptions.landscape = value;
-					onChange();
+					onChange?.();
 				}),
 			);
 
@@ -79,7 +79,7 @@ export class ExportOptionsForm {
 					.setValue(String(this.pdfOptions.margin))
 					.onChange((value) => {
 						this.pdfOptions.margin = Number(value);
-						onChange();
+						onChange?.();
 					}),
 			);
 
@@ -92,7 +92,7 @@ export class ExportOptionsForm {
 				.setValue(this.pdfOptions.scale)
 				.onChange((value) => {
 					this.pdfOptions.scale = value;
-					onChange();
+					onChange?.();
 				}),
 		);
 	}
