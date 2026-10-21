@@ -1,24 +1,15 @@
 import { App, ButtonComponent, Modal, Notice, Platform, Setting, TFile } from "obsidian";
 import { createExportFile, deliverExportFile } from "../utils/export";
-import {
-	DEFAULT_PDF_OPTIONS,
-	PDF_PAGE_SIZES,
-	isPdfPageSize,
-	type ExportOptions,
-} from "../exportOptions";
+import type { ExportOptions } from "../exportOptions";
+import { ExportOptionsForm } from "./ExportOptionsForm";
 import { t } from "../i18n";
 
 export class ExportModal extends Modal {
-	private fileType: ExportOptions["type"] = "pdf";
-	private pdfOptions = { ...DEFAULT_PDF_OPTIONS };
+	private form!: ExportOptionsForm;
 	private exportButton?: ButtonComponent;
 	private preparedFile?: File;
 	private preparation = Promise.resolve();
 	private revision = 0;
-
-	private get options(): ExportOptions {
-		return this.fileType === "pdf" ? { ...this.pdfOptions } : { type: "html" };
-	}
 
 	constructor(
 		app: App,
@@ -36,85 +27,7 @@ export class ExportModal extends Modal {
 			text: t("modalDescription", this.file.basename),
 		});
 
-		new Setting(this.contentEl)
-			.setName(t("fileType"))
-			.setDesc(t("fileTypeDescription"))
-			.addDropdown((dropdown) => {
-				dropdown
-					.addOption("pdf", "PDF")
-					.addOption("html", "HTML")
-					.setValue(this.fileType)
-					.onChange((value) => {
-						this.fileType = value as ExportOptions["type"];
-						pdfSettings.style.display = this.fileType === "pdf" ? "" : "none";
-						this.prepare();
-					});
-			});
-
-		const pdfSettings = this.contentEl.createDiv();
-
-		new Setting(pdfSettings)
-			.setName(t("includeTitle"))
-			.setDesc(t("includeTitleDescription"))
-			.addToggle((toggle) =>
-				toggle.setValue(this.pdfOptions.includeTitle).onChange((value) => {
-					this.pdfOptions.includeTitle = value;
-					this.prepare();
-				}),
-			);
-
-		new Setting(pdfSettings)
-			.setName(t("pageSize"))
-			.setDesc(t("pageSizeDescription"))
-			.addDropdown((dropdown) => {
-				for (const size of PDF_PAGE_SIZES) {
-					dropdown.addOption(size, size.charAt(0).toUpperCase() + size.slice(1));
-				}
-				dropdown.setValue(this.pdfOptions.pageSize).onChange((value) => {
-					if (isPdfPageSize(value)) {
-						this.pdfOptions.pageSize = value;
-						this.prepare();
-					}
-				});
-			});
-
-		new Setting(pdfSettings)
-			.setName(t("landscape"))
-			.setDesc(t("landscapeDescription"))
-			.addToggle((toggle) =>
-				toggle.setValue(this.pdfOptions.landscape).onChange((value) => {
-					this.pdfOptions.landscape = value;
-					this.prepare();
-				}),
-			);
-
-		new Setting(pdfSettings)
-			.setName(t("margin"))
-			.setDesc(t("marginDescription"))
-			.addDropdown((dropdown) =>
-				dropdown
-					.addOption("10", t("marginNarrow"))
-					.addOption("38", t("marginNormal"))
-					.addOption("76", t("marginWide"))
-					.setValue(String(this.pdfOptions.margin))
-					.onChange((value) => {
-						this.pdfOptions.margin = Number(value);
-						this.prepare();
-					}),
-			);
-
-		const scaleSetting = new Setting(pdfSettings)
-			.setName(t("scale"))
-			.setDesc(t("scaleDescription"));
-		scaleSetting.addSlider((slider) =>
-			slider
-				.setLimits(50, 100, 10)
-				.setValue(this.pdfOptions.scale)
-				.onChange((value) => {
-					this.pdfOptions.scale = value;
-					this.prepare();
-				}),
-		);
+		this.form = new ExportOptionsForm(this.contentEl, () => this.prepare());
 
 		new Setting(this.contentEl)
 			.addButton((button) => button.setButtonText(t("cancel")).onClick(() => this.close()))
@@ -143,7 +56,7 @@ export class ExportModal extends Modal {
 	private prepare(): void {
 		if (!Platform.isMobile) return;
 		const revision = ++this.revision;
-		const options = this.options;
+		const options = this.form.options;
 		this.preparedFile = undefined;
 		this.exportButton?.setDisabled(true);
 
@@ -167,7 +80,7 @@ export class ExportModal extends Modal {
 				if (!this.preparedFile) return;
 				await deliverExportFile(this.preparedFile);
 			} else {
-				await deliverExportFile(await this.createFile(this.options));
+				await deliverExportFile(await this.createFile(this.form.options));
 			}
 			this.close();
 		} catch (error) {

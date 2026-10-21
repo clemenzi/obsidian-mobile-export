@@ -1,4 +1,5 @@
-import { Notice, Platform, TFile } from "obsidian";
+import { Notice, Platform, TFile, TFolder, TAbstractFile, Modal } from "obsidian";
+import { BulkExportModal } from "../ui/BulkExportModal";
 import { ExportModal } from "../ui/ExportModal";
 import { t } from "../i18n";
 import type MobileExportPlugin from "../main";
@@ -6,18 +7,45 @@ import type MobileExportPlugin from "../main";
 export function registerExportMenus(plugin: MobileExportPlugin): void {
 	const isEnabled = () => Platform.isMobile || plugin.settings.enableOnDesktop;
 
+	const openExport = (targets: TAbstractFile[]): void => {
+		if (!isEnabled()) return;
+		const first = targets[0];
+		const modal: Modal =
+			targets.length === 1 && first instanceof TFile && first.extension.toLowerCase() === "md"
+				? new ExportModal(plugin.app, first)
+				: new BulkExportModal(plugin.app, targets);
+		plugin.register(() => modal.close());
+		modal.open();
+	};
+
 	plugin.registerEvent(
 		plugin.app.workspace.on("file-menu", (menu, file) => {
-			if (!isEnabled() || !(file instanceof TFile) || file.extension !== "md") return;
+			if (
+				!isEnabled() ||
+				!(file instanceof TFolder || (file instanceof TFile && file.extension === "md"))
+			)
+				return;
 
 			menu.addItem((item) => {
 				item
-					.setTitle(t("exportContext"))
+					.setTitle(t(file instanceof TFolder ? "bulkTitle" : "exportContext"))
 					.setIcon("document")
 					.onClick(() => {
-						if (isEnabled()) new ExportModal(plugin.app, file).open();
+						openExport([file]);
 					});
 			});
+		}),
+	);
+
+	plugin.registerEvent(
+		plugin.app.workspace.on("files-menu", (menu, files) => {
+			if (!isEnabled() || !files.length) return;
+			menu.addItem((item) =>
+				item
+					.setTitle(t("bulkTitle"))
+					.setIcon("document")
+					.onClick(() => openExport(files)),
+			);
 		}),
 	);
 
@@ -35,7 +63,7 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 							return;
 						}
 
-						new ExportModal(plugin.app, view.file).open();
+						openExport([view.file]);
 					});
 			});
 		}),
@@ -54,7 +82,7 @@ export function registerExportMenus(plugin: MobileExportPlugin): void {
 				return true;
 			}
 
-			new ExportModal(plugin.app, activeFile).open();
+			openExport([activeFile]);
 			return true;
 		},
 	});
